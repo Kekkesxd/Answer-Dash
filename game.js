@@ -12,7 +12,7 @@ function generateZones() {
   const cols = 2;
   const rows = 2;
   const topOffset = 160;
-  const outerPad = 60;   // padding from canvas edges
+  const outerPad = 40;   // padding from canvas edges
   const innerPad = 150;  // padding from the center dividing lines
   const zw = 200;
   const zh = 80;
@@ -167,9 +167,9 @@ function drawQuestionBox(){
 
   // Neon border
   ctx.save();
-  ctx.shadowColor = "#00ffb4";
+  ctx.shadowColor = "#b700ff";
   ctx.shadowBlur  = 20;
-  ctx.strokeStyle = "#00ffb4";
+  ctx.strokeStyle = "#b700ff";
   ctx.lineWidth   = 2;
   ctx.strokeRect(qb.x, qb.y, qb.w, qb.h);
   ctx.restore();
