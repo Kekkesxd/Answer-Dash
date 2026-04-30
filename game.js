@@ -12,6 +12,7 @@ const timerDisplay = document.getElementById("timerDisplay");
 const endScreen = document.getElementById("endScreen");
 const finalText = document.getElementById("finalText");
 const restartButton = document.getElementById("restartButton");
+const questionsDisplay = document.getElementById("questionsDisplay");
 
 
 let playerName = "";
@@ -28,7 +29,7 @@ const player = {
 const difficultySettings = {
   easy : {lives: 5, speed: 3, timer : 10 },
   medium: {lives: 4, speed: 3, timer: 8},
-  hard: {lives : 3 , speed: 4, timer: 6}
+  hard: {lives : 3 , speed: 3, timer: 6}
 }
 
 startButton.addEventListener("click", () => {
@@ -56,6 +57,7 @@ restartButton.addEventListener("click", () => {
   scoreDisplay.textContent = "SCORE: 0";
   livesDisplay.textContent = "LIVES: 3";
   timerDisplay.textContent = "TIME: 10";
+  questionsDisplay.textContent ="Q: 1/10";
 
   // Clear inputs
   playerNameInput.value  = "";
@@ -137,6 +139,7 @@ async function loadQuestions() {
     questions = await response.json();
     currQuestion = questions[0];
     zones = generateZones();
+    questionsDisplay.textContent = `Q: 1/${questions.length}`;
     startCountdown();
   }catch(error){
     console.error("Could not load the questions", error);
@@ -179,11 +182,12 @@ function checkAnswer() {
 function nextQuestion(){
   currQuestionIndex++;
   if(currQuestionIndex >= questions.length){
-    console.log("Game Over - out of questions");
+    endGame();
     return;
   }
 
   currQuestion = questions[currQuestionIndex];
+  questionsDisplay.textContent= `Q: ${currQuestionIndex + 1}/${questions.length}`;
   zones = generateZones();
   roundLocked = false;
   resultCorrectIndex = null;
@@ -236,6 +240,7 @@ function startGame(){
 
   scoreDisplay.textContent = `SCORE: ${score}`;
   livesDisplay.textContent = `LIVES: ${player.lives}`;
+  questionsDisplay.textContent = `Q: 1/${questions.length}`;
 
   player.x = canvas.width  / 2 - player.size / 2;
   player.y = canvas.height / 2 - player.size / 2;

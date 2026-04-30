@@ -128,3 +128,16 @@ body{
   text-align: center;
   line-height: 1.8;
 }
+
+#endScreen {
+  width: 1000px;
+  height: 600px;
+  border: 2px solid #ff2d6f;
+  box-shadow: 0 0 24px #ff2d6f55, 0 0 60px #ff2d6f11;
+  background: #060609;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#questionsDisplay{color: #ffcc00; text-shadow: 0 0 10px #ffcc00;}
