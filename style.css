@@ -30,11 +30,92 @@ body{
 #hud{
     display: flex;
     justify-content: space-between;
+    gap: 24px;
     width: 1000px;
-    padding: 6px 4px;
+    padding: 4px 4px;
     font-family: 'Press Start 2P', monospace;
     font-size: 11px;
 }
 
 #scoreDisplay { color: #00ffb4; text-shadow: 0 0 10px #00ffb4; }
 #livesDisplay { color: #ff2d6f; text-shadow: 0 0 10px #ff2d6f; }
+
+
+.hidden{
+    display: none !important;
+}
+
+#app{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#startScreen{
+    width: 1000px;
+    height: 600px;
+    border: 2px solid #00ffb4;
+    box-shadow: 0 0 24px #00ffb455, 0 0 60px #00ffb411;
+    background: #060609;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#menuBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 340px;
+}
+
+#menuBox h1 {
+  font-size: 16px;
+  color: #00ffb4;
+  text-shadow: 0 0 10px #00ffb4, 0 0 30px #00ffb455;
+  margin-bottom: 10px;
+  letter-spacing: 4px;
+}
+
+#menuBox input,
+#menuBox select {
+  width: 100%;
+  height: 44px;
+  background: #0d0d14;
+  border: 2px solid #bf5fff;
+  box-shadow: 0 0 10px #bf5fff55;
+  color: #ffffff;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  padding: 0 12px;
+  outline: none;
+  border-radius: 6px;
+}
+
+#menuBox select option {
+  background: #0d0d14;
+}
+
+#menuBox button {
+  width: 100%;
+  height: 48px;
+  background: transparent;
+  border: 2px solid #00ffb4;
+  box-shadow: 0 0 14px #00ffb455;
+  color: #00ffb4;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  letter-spacing: 3px;
+  transition: background 0.2s, color 0.2s;
+}
+
+#menuBox button:hover {
+  background: #00ffb4;
+  color: #060609;
+}
+
+#timerDisplay{color: #00ffb4; text-shadow: 0 0 10px #00ffb4;}

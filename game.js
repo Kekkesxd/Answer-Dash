@@ -2,6 +2,15 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const livesDisplay = document.getElementById("livesDisplay");
+const startScreen = document.getElementById("startScreen");
+const gameScreen = document.getElementById("gameScreen");
+const startButton = document.getElementById("startButton");
+const playerNameInput = document.getElementById("playerName");
+const difficultySelect = document.getElementById("difficulty");
+const timerDisplay = document.getElementById("timerDisplay");
+
+let playerName = "";
+let selectedDiff = "";
 
 const player = {
     x: canvas.width / 2 - 14,
@@ -11,6 +20,28 @@ const player = {
     lives: 3
 };
 
+const difficultySettings = {
+  easy : {lives: 5, speed: 3, timer : 10 },
+  medium: {lives: 4, speed: 3, timer: 8},
+  hard: {lives : 3 , speed: 4, timer: 6}
+}
+
+startButton.addEventListener("click", () => {
+  playerName = playerNameInput.value.trim();
+  selectedDiff = difficultySelect.value;
+
+  if(playerName === ""){
+    alert("Please Enter your name!");
+    return;
+  }
+
+  if(selectedDiff == ""){
+    alert("Please select a difficulty!");
+    return;
+  }
+  
+  startGame();
+})
 
 // Collide with question box
 const qb = { x: 50, y: 20, w: canvas.width - 100, h: 110 };
@@ -19,6 +50,11 @@ let questions = [];
 let currQuestion = null;
 let currQuestionIndex = 0;
 let roundLocked = false;
+let countdown = 0;
+
+let timeLeft = 0;
+let playerTimer = 10;
+let timerInterval = null;
 
 //To visualise feedback on answers
 let resultCorrectIndex = null;
@@ -81,6 +117,7 @@ async function loadQuestions() {
     questions = await response.json();
     currQuestion = questions[0];
     zones = generateZones();
+    startCountdown();
   }catch(error){
     console.error("Could not load the questions", error);
   }
@@ -135,10 +172,54 @@ function nextQuestion(){
   //Resetting the player to center
   player.x = canvas.width / 2 - player.size / 2;
   player.y = canvas.height / 2 - player.size /2;
+
+  startCountdown();
+}
+
+function startCountdown(){
+  countdown = 3;
+  roundLocked = true;
+  timeLeft = playerTimer;
+  timerDisplay.textContent = `TIME: ${timeLeft}`;
+
+  const interval = setInterval(() => {
+    countdown--;
+    if(countdown <= 0){
+      countdown = 0;
+      roundLocked = false;
+      clearInterval(interval);
+      startTimer();
+    }
+  }, 1000);
 }
 
 function endGame(){
   console.log(`Game Over! Final score: ${score}`);
+}
+
+function startGame(){
+  const settings = difficultySettings[selectedDiff];
+
+  player.lives = settings.lives;
+  player.speed = settings.speed;
+  playerTimer = settings.timer;
+
+  score = 0;
+  currQuestionIndex = 0;
+  roundLocked = false;
+  resultCorrectIndex = null;
+  resultChosenIndex = null;
+
+  scoreDisplay.textContent = `SCORE: ${score}`;
+  livesDisplay.textContent = `LIVES: ${player.lives}`;
+
+  player.x = canvas.width  / 2 - player.size / 2;
+  player.y = canvas.height / 2 - player.size / 2;
+
+  startScreen.classList.add("hidden");
+  gameScreen.classList.remove("hidden");
+
+  loadQuestions().then(() => loop());
 }
 
 let zones = generateZones();
@@ -156,10 +237,12 @@ window.addEventListener("keyup", e => {
 });
 
 function update() {
-  if (keys["arrowup"]    || keys["w"]) player.y -= player.speed;
-  if (keys["arrowdown"]  || keys["s"]) player.y += player.speed;
-  if (keys["arrowleft"]  || keys["a"]) player.x -= player.speed; 
-  if (keys["arrowright"] || keys["d"]) player.x += player.speed; 
+  if(!roundLocked){
+   if (keys["arrowup"]    || keys["w"]) player.y -= player.speed;
+   if (keys["arrowdown"]  || keys["s"]) player.y += player.speed;
+   if (keys["arrowleft"]  || keys["a"]) player.x -= player.speed; 
+   if (keys["arrowright"] || keys["d"]) player.x += player.speed; 
+  }
 
 
   //keeping the player in boundary
@@ -198,6 +281,7 @@ function draw() {
   drawQuestionBox();
   drawZones();
   drawPlayer();
+  drawCountdown();
 }
 
 function drawPlayer() {
@@ -291,8 +375,66 @@ function drawQuestionBox(){
   ctx.shadowBlur   = 10;
   ctx.fillText(currQuestion ? currQuestion.question: "Loading....", canvas.width / 2, qb.y + qb.h / 2);
   ctx.restore();
+
+  // Timer
+ ctx.save();
+ ctx.font         = "10px 'Press Start 2P'";
+ ctx.fillStyle    = timeLeft <= 3 ? "#ff2d6f" : "#00ffb4";
+ ctx.shadowColor  = timeLeft <= 3 ? "#ff2d6f" : "#00ffb4";
+ ctx.shadowBlur   = 10;
+ ctx.textAlign    = "right";
+ ctx.textBaseline = "middle";
+ ctx.restore();
 }
 
+function drawCountdown() {
+  if (countdown <= 0) return;
+
+  ctx.save();
+  ctx.font         = "72px 'Press Start 2P'";
+  ctx.fillStyle    = "#00ffb4";
+  ctx.textAlign    = "center";
+  ctx.textBaseline = "middle";
+  ctx.shadowColor  = "#00ffb4";
+  ctx.shadowBlur   = 40;
+  ctx.globalAlpha  = 0.9;
+  ctx.fillText(countdown, canvas.width / 2, canvas.height / 2);
+  ctx.restore();
+}
+
+function startTimer(){
+  clearInterval(timerInterval);
+  timeLeft = playerTimer;
+
+  timerDisplay.textContent = `TIME: ${timeLeft}`;
+  timerDisplay.style.color = "#00ffb4";
+  timerDisplay.style.textShadow = "0 0 10px #00ffb4";
+  
+  timerInterval = setInterval( () => {
+    if(roundLocked) return;
+    timeLeft--;
+    timerDisplay.textContent = `TIME: ${timeLeft}`;
+    timerDisplay.style.color = timeLeft <= 3 ? "#ff2d6f" : "#00ffb4";
+    timerDisplay.style.textShadow = timeLeft <= 3 ? "0 0 10px #ff2d6f" : "0 0 10px #00ffb4";
+    if(timeLeft <= 0){
+      clearInterval(timerInterval);
+      roundLocked = true;
+      resultCorrectIndex = currQuestion.correct;
+      resultChosenIndex = null;
+
+      player.lives--;
+      livesDisplay.textContent = `LIVES: ${player.lives}`;
+
+      if(player.lives <= 0){
+        setTimeout(()=> endGame(), 1000);
+        return;
+      }
+
+      setTimeout( () => nextQuestion(), 1000);
+    }
+  }, 1000);
+  
+}
 
 function loop(){
     update();
@@ -300,5 +442,4 @@ function loop(){
     requestAnimationFrame(loop);
 }
 
-document.fonts.ready.then(() => { loadQuestions().then(() => loop());
-});
+document.fonts.ready.then(() => {});

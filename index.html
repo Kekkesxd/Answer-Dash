@@ -7,13 +7,32 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
     <main id = "app">
-        <div id="hud">
-            <span id="scoreDisplay">SCORE: 0</span>
-            <span id="livesDisplay">LIVES: 3</span>
-        </div>
-        <canvas id="gameCanvas" width="1500" height="600"></canvas>
+
+        <!-- Start Screen -->
+         <section id="startScreen">
+            <div id="menuBox">
+                <h1>ANSWER DASH</h1>
+                <input id="playerName" type="text" placeholder="Enter Your Name" maxlength="16"/>
+                <select id="difficulty">
+                     <option value="">Select difficulty</option>
+                     <option value="easy">Easy</option>
+                     <option value="medium">Medium</option>
+                     <option value="hard">Hard</option>
+                </select>
+                <button id="startButton">START</button>
+            </div>
+         </section>
+
+        <!-- Game Screen-->
+        <section id = "gameScreen" class="hidden">
+            <div id="hud">
+                <span id="scoreDisplay">SCORE: 0</span>
+                <span id="timerDisplay">TIME: 10</span>
+                <span id="livesDisplay">LIVES: 3</span>
+            </div>
+            <canvas id="gameCanvas" width="1500" height="600"></canvas> 
+        </section> 
     </main>
 
    
