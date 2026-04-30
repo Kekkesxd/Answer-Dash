@@ -119,3 +119,12 @@ body{
 }
 
 #timerDisplay{color: #00ffb4; text-shadow: 0 0 10px #00ffb4;}
+
+#finalText{
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: #ff2d6f;
+  text-shadow: 0 0 10px #ff2d6f;
+  text-align: center;
+  line-height: 1.8;
+}

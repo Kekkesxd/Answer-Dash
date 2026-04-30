@@ -1,5 +1,6 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
+
 const scoreDisplay = document.getElementById("scoreDisplay");
 const livesDisplay = document.getElementById("livesDisplay");
 const startScreen = document.getElementById("startScreen");
@@ -8,6 +9,10 @@ const startButton = document.getElementById("startButton");
 const playerNameInput = document.getElementById("playerName");
 const difficultySelect = document.getElementById("difficulty");
 const timerDisplay = document.getElementById("timerDisplay");
+const endScreen = document.getElementById("endScreen");
+const finalText = document.getElementById("finalText");
+const restartButton = document.getElementById("restartButton");
+
 
 let playerName = "";
 let selectedDiff = "";
@@ -43,6 +48,20 @@ startButton.addEventListener("click", () => {
   startGame();
 })
 
+restartButton.addEventListener("click", () => {
+  endScreen.classList.add("hidden");
+  startScreen.classList.remove("hidden");
+  
+  // Reset HUD displays
+  scoreDisplay.textContent = "SCORE: 0";
+  livesDisplay.textContent = "LIVES: 3";
+  timerDisplay.textContent = "TIME: 10";
+
+  // Clear inputs
+  playerNameInput.value  = "";
+  difficultySelect.value = "";
+});
+
 // Collide with question box
 const qb = { x: 50, y: 20, w: canvas.width - 100, h: 110 };
 
@@ -55,6 +74,7 @@ let countdown = 0;
 let timeLeft = 0;
 let playerTimer = 10;
 let timerInterval = null;
+
 
 //To visualise feedback on answers
 let resultCorrectIndex = null;
@@ -194,7 +214,11 @@ function startCountdown(){
 }
 
 function endGame(){
-  console.log(`Game Over! Final score: ${score}`);
+  clearInterval(timerInterval);
+  gameScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+
+  finalText.textContent = `${playerName}, you scored ${score} point(s)!`;
 }
 
 function startGame(){
