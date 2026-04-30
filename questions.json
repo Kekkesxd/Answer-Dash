@@ -1,0 +1,17 @@
+[
+  {
+    "question": "What is the capital of France?",
+    "answers": ["Berlin", "Paris", "Madrid", "Rome"],
+    "correct": 1
+  },
+  {
+    "question": "What is 8 x 7?",
+    "answers": ["54", "64", "56", "48"],
+    "correct": 2
+  },
+  {
+    "question": "What colour do you get mixing blue and yellow?",
+    "answers": ["Purple", "Orange", "Brown", "Green"],
+    "correct": 3
+  }
+]

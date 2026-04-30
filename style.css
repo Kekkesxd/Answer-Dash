@@ -26,3 +26,15 @@ body{
     0 0 24px #00ffb455
     0 0 60px #00ffb411;
 }
+
+#hud{
+    display: flex;
+    justify-content: space-between;
+    width: 1000px;
+    padding: 6px 4px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+}
+
+#scoreDisplay { color: #00ffb4; text-shadow: 0 0 10px #00ffb4; }
+#livesDisplay { color: #ff2d6f; text-shadow: 0 0 10px #ff2d6f; }

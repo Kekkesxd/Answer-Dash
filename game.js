@@ -1,12 +1,30 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
+const scoreDisplay = document.getElementById("scoreDisplay");
+const livesDisplay = document.getElementById("livesDisplay");
 
 const player = {
     x: canvas.width / 2 - 14,
     y: canvas.height / 2 - 14,
     size: 28,
-    speed: 3.8
+    speed: 3.8,
+    lives: 3
 };
+
+
+// Collide with question box
+const qb = { x: 50, y: 20, w: canvas.width - 100, h: 110 };
+
+let questions = [];
+let currQuestion = null;
+let currQuestionIndex = 0;
+let roundLocked = false;
+
+//To visualise feedback on answers
+let resultCorrectIndex = null;
+let resultChosenIndex = null;
+
+let score = 0;
 
 function generateZones() {
   const cols = 2;
@@ -57,6 +75,72 @@ function generateZones() {
   return zones;
 }
 
+async function loadQuestions() {
+  try{
+    const response = await fetch("questions.json");
+    questions = await response.json();
+    currQuestion = questions[0];
+    zones = generateZones();
+  }catch(error){
+    console.error("Could not load the questions", error);
+  }
+}
+function checkAnswer() {
+  if (roundLocked) return;
+
+  for (const [i, z] of zones.entries()) {
+    if (
+      player.x < z.x + z.w &&
+      player.x + player.size > z.x &&
+      player.y < z.y + z.h &&
+      player.y + player.size > z.y
+    ) {
+      roundLocked = true;
+      resultCorrectIndex = currQuestion.correct;
+      resultChosenIndex = i;
+
+
+      if( i === currQuestion.correct){
+        score++;
+        scoreDisplay.textContent = `SCORE: ${score}`;
+      }else{
+        player.lives--;
+        livesDisplay.textContent = `LIVES: ${player.lives}`;
+        if(player.lives <= 0 ){
+          setTimeout( () => endGame(), 1000);
+
+          return;
+        }
+      }
+
+      setTimeout(() => nextQuestion(), 1000);
+      return;
+    }
+  }
+}
+
+function nextQuestion(){
+  currQuestionIndex++;
+  if(currQuestionIndex >= questions.length){
+    console.log("Game Over - out of questions");
+    return;
+  }
+
+  currQuestion = questions[currQuestionIndex];
+  zones = generateZones();
+  roundLocked = false;
+  resultCorrectIndex = null;
+  resultChosenIndex = null;
+
+  //Resetting the player to center
+  player.x = canvas.width / 2 - player.size / 2;
+  player.y = canvas.height / 2 - player.size /2;
+}
+
+function endGame(){
+  console.log(`Game Over! Final score: ${score}`);
+}
+
 let zones = generateZones();
 const keys = {};
 
@@ -82,8 +166,7 @@ function update() {
   player.x = Math.max(0, Math.min(canvas.width  - player.size, player.x));
   player.y = Math.max(0, Math.min(canvas.height - player.size, player.y));
 
-  // Collide with question box
-const qb = { x: 50, y: 20, w: canvas.width - 100, h: 110 };
+
 
 if (
   player.x < qb.x + qb.w &&
@@ -104,14 +187,17 @@ if (
     player.x = qb.x + qb.w; // pushed right
   }
 }
+
+checkAnswer();
 }
 
 function draw() {
   ctx.fillStyle = "#060609";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  drawPlayer();
-  drawZones();
+  
   drawQuestionBox();
+  drawZones();
+  drawPlayer();
 }
 
 function drawPlayer() {
@@ -126,20 +212,40 @@ function drawPlayer() {
   ctx.restore();
 }
 
-function drawZones() {
-  for (const z of zones) {
+function drawZones() { 
+  const radius = 8;
+  for (const[i,z] of zones.entries()) {
+    
+    let fillColor = "rgba(0, 0, 0, 0.4)";
+    
+    if(resultCorrectIndex !== null){
+      if(i === resultCorrectIndex){
+        fillColor = "rgba(0, 255, 100, 0.35)";
+      }else if (i === resultChosenIndex && resultChosenIndex !== resultCorrectIndex){
+        fillColor = "rgba(255, 40, 40, 0.35)";
+      }
+    }
+    
+   
+    
     // Neon glow border
     ctx.save();
     ctx.shadowColor = z.neon;
     ctx.shadowBlur  = 20;
     ctx.strokeStyle = z.neon;
     ctx.lineWidth   = 2;
-    ctx.strokeRect(z.x, z.y, z.w, z.h);
+    ctx.beginPath();
+    ctx.roundRect(z.x, z.y, z.w, z.h, radius);
+    ctx.stroke();
     ctx.restore();
 
     // Dark fill
-    ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
-    ctx.fillRect(z.x, z.y, z.w, z.h);
+
+    ctx.beginPath();
+    ctx.roundRect(z.x, z.y, z.w, z.h, radius);
+    ctx.fillStyle = fillColor;
+    ctx.fill();
+   
 
     // Label text
     ctx.save();
@@ -149,21 +255,20 @@ function drawZones() {
     ctx.textBaseline = "middle";
     ctx.shadowColor  = z.neon;
     ctx.shadowBlur   = 10;
-    ctx.fillText(z.label, z.x + z.w / 2, z.y + z.h / 2);
+    ctx.fillText(currQuestion ? currQuestion.answers[i] : z.label, z.x + z.w / 2, z.y + z.h / 2);
     ctx.restore();
   }
 }
 
 function drawQuestionBox(){
-    const qb = {
-        x: 50,
-        y:20,
-        w: canvas.width - 100,
-        h:110
-    };
 
-    ctx.fillStyle = "rgba(0,0,0,0.6)";
-      ctx.fillRect(qb.x, qb.y, qb.w, qb.h);
+  const radius = 8;
+  
+  
+  ctx.beginPath();
+  ctx.roundRect(qb.x, qb.y, qb.w, qb.h, radius);
+  ctx.fillStyle = "rgba(0,0,0,0.6)";
+  ctx.fill();
 
   // Neon border
   ctx.save();
@@ -171,7 +276,9 @@ function drawQuestionBox(){
   ctx.shadowBlur  = 20;
   ctx.strokeStyle = "#b700ff";
   ctx.lineWidth   = 2;
-  ctx.strokeRect(qb.x, qb.y, qb.w, qb.h);
+  ctx.beginPath();
+  ctx.roundRect(qb.x, qb.y, qb.w, qb.h, radius);
+  ctx.stroke();
   ctx.restore();
 
   
@@ -182,9 +289,10 @@ function drawQuestionBox(){
   ctx.textBaseline = "middle";
   ctx.shadowColor  = "#00ffb4";
   ctx.shadowBlur   = 10;
-  ctx.fillText("QUESTION GOES HERE", canvas.width / 2, qb.y + qb.h / 2);
+  ctx.fillText(currQuestion ? currQuestion.question: "Loading....", canvas.width / 2, qb.y + qb.h / 2);
   ctx.restore();
 }
+
 
 function loop(){
     update();
@@ -192,4 +300,5 @@ function loop(){
     requestAnimationFrame(loop);
 }
 
-document.fonts.ready.then(() => loop());
+document.fonts.ready.then(() => { loadQuestions().then(() => loop());
+});
