@@ -141,3 +141,52 @@ body{
 }
 
 #questionsDisplay{color: #ffcc00; text-shadow: 0 0 10px #ffcc00;}
+
+#rulesBox {
+  width: 700px;
+  background: #0d0d14;
+  border: 2px solid #00ffb4;
+  box-shadow: 0 0 24px #00ffb455;
+  border-radius: 12px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+#rulesBox h2 {
+  font-size: 18px;
+  color: #00ffb4;
+  text-shadow: 0 0 10px #00ffb4;
+  letter-spacing: 4px;
+}
+
+#rulesBox p {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: #ffffff99;
+  line-height: 2.2;
+}
+
+#rulesBox button {
+  width: 260px;
+  height: 52px;
+  background: transparent;
+  border: 2px solid #00ffb4;
+  box-shadow: 0 0 14px #00ffb455;
+  color: #00ffb4;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  letter-spacing: 3px;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 10px;
+}
+
+#rulesBox button:hover {
+  background: #00ffb4;
+  color: #060609;
+}

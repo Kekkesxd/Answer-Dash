@@ -13,6 +13,8 @@ const endScreen = document.getElementById("endScreen");
 const finalText = document.getElementById("finalText");
 const restartButton = document.getElementById("restartButton");
 const questionsDisplay = document.getElementById("questionsDisplay");
+const rulesPopup = document.getElementById("rulesPopup");
+const rulesButton = document.getElementById("rulesButton");
 
 let gameRunning = false;
 let playerName = "";
@@ -45,7 +47,13 @@ startButton.addEventListener("click", () => {
     alert("Please select a difficulty!");
     return;
   }
-  
+
+  startScreen.classList.add("hidden");
+  rulesPopup.classList.remove("hidden");
+})
+
+rulesButton.addEventListener("click", () => {
+  rulesPopup.classList.add("hidden");
   startGame();
 })
 
@@ -219,12 +227,14 @@ async function loadQuestions() {
 function checkAnswer() {
   if (roundLocked) return;
 
+  const inset = 40;
+
   for (const [i, z] of zones.entries()) {
     if (
-      player.x < z.x + z.w &&
-      player.x + player.size > z.x &&
-      player.y < z.y + z.h &&
-      player.y + player.size > z.y
+      player.x + inset < z.x + z.w &&
+      player.x + player.size - inset> z.x &&
+      player.y + inset < z.y + z.h &&
+      player.y + player.size  - inset > z.y
     ) {
       roundLocked = true;
       resultCorrectIndex = currQuestion.correct;
@@ -407,9 +417,9 @@ function draw() {
   ctx.fillStyle = "#060609";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   
-  drawQuestionBox();
-  drawZones();
+  drawQuestionBox(); 
   drawObstacles();
+  drawZones();
   drawPlayer();
   drawCountdown();
 }
@@ -430,7 +440,7 @@ function drawZones() {
   const radius = 8;
   for (const[i,z] of zones.entries()) {
     
-    let fillColor = "rgba(0, 0, 0, 0.4)";
+    let fillColor = "rgba(0, 0, 0, 0.85)";
     
     if(resultCorrectIndex !== null){
       if(i === resultCorrectIndex){
@@ -439,9 +449,8 @@ function drawZones() {
         fillColor = "rgba(255, 40, 40, 0.35)";
       }
     }
-    
-   
-    
+  
+
     // Neon glow border
     ctx.save();
     ctx.shadowColor = z.neon;
@@ -453,8 +462,7 @@ function drawZones() {
     ctx.stroke();
     ctx.restore();
 
-    // Dark fill
-
+    // Dark fill - outer
     ctx.beginPath();
     ctx.roundRect(z.x, z.y, z.w, z.h, radius);
     ctx.fillStyle = fillColor;
