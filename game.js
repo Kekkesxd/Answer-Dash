@@ -14,7 +14,7 @@ const finalText = document.getElementById("finalText");
 const restartButton = document.getElementById("restartButton");
 const questionsDisplay = document.getElementById("questionsDisplay");
 
-
+let gameRunning = false;
 let playerName = "";
 let selectedDiff = "";
 
@@ -27,9 +27,9 @@ const player = {
 };
 
 const difficultySettings = {
-  easy : {lives: 5, speed: 3, timer : 10 },
-  medium: {lives: 4, speed: 3, timer: 8},
-  hard: {lives : 3 , speed: 3, timer: 6}
+  easy : {lives: 5, speed: 3, timer : 10 , obstacles: 4},
+  medium: {lives: 4, speed: 3, timer: 8, obstacles: 8},
+  hard: {lives : 3 , speed: 3, timer: 6, obstacles: 10}
 }
 
 startButton.addEventListener("click", () => {
@@ -133,12 +133,83 @@ function generateZones() {
   return zones;
 }
 
+function generateObstacles() {
+  const obs = [];
+  const ow  = 70;
+  const oh  = 70;
+
+  // Grid auto-sizes to always fit obstacleCount
+  const cols   = Math.ceil(Math.sqrt(obstacleCount * 2));
+  const rows   = Math.ceil(obstacleCount / cols);
+  const startY = 180;
+  const cellW  = canvas.width  / cols;
+  const cellH  = (canvas.height - startY) / rows;
+  const pad    = 40;
+
+  const cells = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      cells.push({ r, c });
+    }
+  }
+
+  // Fisher-Yates shuffle
+  for (let i = cells.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cells[i], cells[j]] = [cells[j], cells[i]];
+  }
+
+  for (let i = 0; i < obstacleCount; i++) {
+    const cell  = cells[i];
+    const cellX = cell.c * cellW;
+    const cellY = startY + cell.r * cellH;
+
+    const x = cellX + pad + Math.random() * Math.max(0, cellW - ow - pad * 2);
+    const y = cellY + pad + Math.random() * Math.max(0, cellH - oh - pad * 2);
+
+    obs.push({
+      x: Math.floor(x),
+      y: Math.floor(y),
+      w: ow,
+      h: oh
+    });
+  }
+
+  return obs;
+}
+
+//Randomising the Answer boxes
+function shuffleAnswers(question) {
+  // Create array of answer/index pairs
+  const pairs = question.answers.map((answer, i) => ({ answer, i }));
+
+  // Fisher-Yates shuffle
+  for (let i = pairs.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+  }
+
+  // Return new question with shuffled answers and updated correct index
+  return {
+    ...question,
+    answers: pairs.map(p => p.answer),
+    correct: pairs.findIndex(p => p.i === question.correct)
+  };
+}
+
 async function loadQuestions() {
   try{
     const response = await fetch("questions.json");
     questions = await response.json();
-    currQuestion = questions[0];
+
+    //shuffling the questions
+    for (let i = questions.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i+1));
+      [questions[i], questions[j]] = [questions[j], questions[i]];
+    }
+    currQuestion = shuffleAnswers(questions[0]);
     zones = generateZones();
+    obstacles = generateObstacles();
     questionsDisplay.textContent = `Q: 1/${questions.length}`;
     startCountdown();
   }catch(error){
@@ -186,9 +257,10 @@ function nextQuestion(){
     return;
   }
 
-  currQuestion = questions[currQuestionIndex];
+  currQuestion = shuffleAnswers(questions[currQuestionIndex]);
   questionsDisplay.textContent= `Q: ${currQuestionIndex + 1}/${questions.length}`;
   zones = generateZones();
+  obstacles = generateObstacles();
   roundLocked = false;
   resultCorrectIndex = null;
   resultChosenIndex = null;
@@ -218,6 +290,7 @@ function startCountdown(){
 }
 
 function endGame(){
+  gameRunning = false;
   clearInterval(timerInterval);
   gameScreen.classList.add("hidden");
   endScreen.classList.remove("hidden");
@@ -227,10 +300,13 @@ function endGame(){
 
 function startGame(){
   const settings = difficultySettings[selectedDiff];
+  
+  gameRunning = true;
 
   player.lives = settings.lives;
   player.speed = settings.speed;
   playerTimer = settings.timer;
+  obstacleCount = settings.obstacles;
 
   score = 0;
   currQuestionIndex = 0;
@@ -252,6 +328,8 @@ function startGame(){
 }
 
 let zones = generateZones();
+let obstacles = [];
+let obstacleCount = 0;
 const keys = {};
 
 window.addEventListener("keydown", e => {
@@ -279,7 +357,7 @@ function update() {
   player.y = Math.max(0, Math.min(canvas.height - player.size, player.y));
 
 
-
+//Question Box collision
 if (
   player.x < qb.x + qb.w &&
   player.x + player.size > qb.x &&
@@ -300,6 +378,28 @@ if (
   }
 }
 
+//Obstacles Collision
+for (const o of obstacles) {
+  if (
+    player.x < o.x + o.w &&
+    player.x + player.size > o.x &&
+    player.y < o.y + o.h &&
+    player.y + player.size > o.y
+  ) {
+    const fromLeft   = (player.x + player.size) - o.x;
+    const fromRight  = (o.x + o.w) - player.x;
+    const fromTop    = (player.y + player.size) - o.y;
+    const fromBottom = (o.y + o.h) - player.y;
+
+    const min = Math.min(fromLeft, fromRight, fromTop, fromBottom);
+
+    if (min === fromLeft)   player.x = o.x - player.size;
+    if (min === fromRight)  player.x = o.x + o.w;
+    if (min === fromTop)    player.y = o.y - player.size;
+    if (min === fromBottom) player.y = o.y + o.h;
+  }
+}
+
 checkAnswer();
 }
 
@@ -309,6 +409,7 @@ function draw() {
   
   drawQuestionBox();
   drawZones();
+  drawObstacles();
   drawPlayer();
   drawCountdown();
 }
@@ -369,6 +470,29 @@ function drawZones() {
     ctx.shadowColor  = z.neon;
     ctx.shadowBlur   = 10;
     ctx.fillText(currQuestion ? currQuestion.answers[i] : z.label, z.x + z.w / 2, z.y + z.h / 2);
+    ctx.restore();
+  }
+}
+
+function drawObstacles() {
+  const radius = 6;
+
+  for (const o of obstacles) {
+    // Fill
+    ctx.beginPath();
+    ctx.roundRect(o.x, o.y, o.w, o.h, radius);
+    ctx.fillStyle = "rgba(255, 60, 60, 0.15)";
+    ctx.fill();
+
+    // Neon border
+    ctx.save();
+    ctx.shadowColor = "#ff2d6f";
+    ctx.shadowBlur  = 16;
+    ctx.strokeStyle = "#ff2d6f";
+    ctx.lineWidth   = 2;
+    ctx.beginPath();
+    ctx.roundRect(o.x, o.y, o.w, o.h, radius);
+    ctx.stroke();
     ctx.restore();
   }
 }
@@ -466,9 +590,10 @@ function startTimer(){
 }
 
 function loop(){
-    update();
-    draw();
-    requestAnimationFrame(loop);
+  if(!gameRunning) return;
+  update();
+  draw();
+  requestAnimationFrame(loop);
 }
 
 document.fonts.ready.then(() => {});
