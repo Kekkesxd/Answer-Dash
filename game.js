@@ -227,7 +227,7 @@ async function loadQuestions() {
 function checkAnswer() {
   if (roundLocked) return;
 
-  const inset = 40;
+  const inset = 35;
 
   for (const [i, z] of zones.entries()) {
     if (
@@ -414,9 +414,9 @@ checkAnswer();
 }
 
 function draw() {
-  ctx.fillStyle = "#060609";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  drawBackground();
   
+  drawGrid();
   drawQuestionBox(); 
   drawObstacles();
   drawZones();
@@ -440,7 +440,7 @@ function drawZones() {
   const radius = 8;
   for (const[i,z] of zones.entries()) {
     
-    let fillColor = "rgba(0, 0, 0, 0.85)";
+    let fillColor = "rgba(0, 0, 0, 0.75)";
     
     if(resultCorrectIndex !== null){
       if(i === resultCorrectIndex){
@@ -471,7 +471,7 @@ function drawZones() {
 
     // Label text
     ctx.save();
-    ctx.font         = "9px 'Press Start 2P'";
+    ctx.font         = "13px 'Press Start 2P'";
     ctx.fillStyle    = z.neon;
     ctx.textAlign    = "center";
     ctx.textBaseline = "middle";
@@ -546,6 +546,57 @@ function drawQuestionBox(){
  ctx.textAlign    = "right";
  ctx.textBaseline = "middle";
  ctx.restore();
+}
+
+function drawBackground() {
+  const bg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+
+  bg.addColorStop(0, "#14002e");   // purple
+  bg.addColorStop(0.35, "#061a40"); // deep blue
+  bg.addColorStop(0.7, "#001f2f");  // teal/navy
+  bg.addColorStop(1, "#2e003e");    // magenta-purple
+
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Soft colorful glow spots
+  const glow1 = ctx.createRadialGradient(150, 180, 20, 150, 180, 260);
+  glow1.addColorStop(0, "rgba(255, 45, 111, 0.25)");
+  glow1.addColorStop(1, "rgba(255, 45, 111, 0)");
+  ctx.fillStyle = glow1;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const glow2 = ctx.createRadialGradient(canvas.width - 180, canvas.height - 120, 20, canvas.width - 180, canvas.height - 120, 300);
+  glow2.addColorStop(0, "rgba(0, 200, 255, 0.25)");
+  glow2.addColorStop(1, "rgba(0, 200, 255, 0)");
+  ctx.fillStyle = glow2;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function drawGrid() {
+  const gridSize = 40;
+
+  ctx.save();
+  ctx.strokeStyle = "rgba(255, 255, 255, 0.04)";
+  ctx.lineWidth   = 1;
+
+  // Vertical lines
+  for (let x = 0; x < canvas.width; x += gridSize) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, canvas.height);
+    ctx.stroke();
+  }
+
+  // Horizontal lines
+  for (let y = 0; y < canvas.height; y += gridSize) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(canvas.width, y);
+    ctx.stroke();
+  }
+
+  ctx.restore();
 }
 
 function drawCountdown() {
