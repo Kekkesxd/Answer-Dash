@@ -190,3 +190,5 @@ body{
   background: #00ffb4;
   color: #060609;
 }
+
+#highScoreDisplay{color: #ffcc00; text-shadow: 0 0 10px #ffcc00;}

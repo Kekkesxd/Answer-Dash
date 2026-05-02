@@ -16,6 +16,7 @@ const questionsDisplay = document.getElementById("questionsDisplay");
 const rulesPopup = document.getElementById("rulesPopup");
 const rulesButton = document.getElementById("rulesButton");
 const themeSelect = document.getElementById("theme");
+const highScoreDisplay = document.getElementById("highScoreDisplay");
 
 let selectedTheme ="";
 
@@ -32,9 +33,9 @@ const player = {
 };
 
 const difficultySettings = {
-  easy : {lives: 5, speed: 3.8, timer : 10 , obstacles: 4},
-  medium: {lives: 4, speed: 3.8, timer: 8, obstacles: 8},
-  hard: {lives : 3 , speed: 3.8, timer: 6, obstacles: 10}
+  easy : {lives: 5, speed: 3.8, timer : 10 , obstacles: 0, resetObstacles :0},
+  medium: {lives: 4, speed: 3.8, timer: 8, obstacles: 8, resetObstacles: 4},
+  hard: {lives : 3 , speed: 3.8, timer: 6, obstacles: 10, resetObstacles: 10}
 }
 
 const themeFiles ={
@@ -196,7 +197,8 @@ function generateObstacles() {
       x: Math.floor(x),
       y: Math.floor(y),
       w: ow,
-      h: oh
+      h: oh,
+      reset: i < resetObstacles
     });
   }
 
@@ -232,7 +234,7 @@ async function loadQuestions() {
       const j = Math.floor(Math.random() * (i+1));
       [questions[i], questions[j]] = [questions[j], questions[i]];
     }
-    questions = questions.slice(0,10);
+    questions = questions.slice(0,20);
     currQuestion = shuffleAnswers(questions[0]);
     zones = generateZones();
     obstacles = generateObstacles();
@@ -297,7 +299,7 @@ function nextQuestion(){
 
   //Resetting the player to center
   player.x = canvas.width / 2 - player.size / 2;
-  player.y = canvas.height / 2 - player.size /2;
+  player.y = canvas.height / 2 + 50;
 
   startCountdown();
 }
@@ -322,10 +324,36 @@ function startCountdown(){
 function endGame(){
   gameRunning = false;
   clearInterval(timerInterval);
+
+  const isNewHigh = saveHighScore(score);
+  const highScore = loadHighScore();
+
+  highScoreDisplay.textContent = `BEST: ${highScore}`;
+
   gameScreen.classList.add("hidden");
   endScreen.classList.remove("hidden");
 
-  finalText.textContent = `${playerName}, you scored ${score} point(s)!`;
+  finalText.innerHTML =
+  `${playerName}, you scored <span style="color:#00ffb4">${score}</span> point(s)!<br><br>
+   High Score: <span style="color:#ffcc00">${highScore}</span>
+   ${isNewHigh ? '<br><br><span style="color:#ff2d6f">NEW HIGH SCORE!</span>' : ""}`;
+}
+
+function getHighScoreKey(){
+  return `highscore_${selectedTheme}_${selectedDiff}`;
+}
+
+function loadHighScore(){
+  return parseInt(localStorage.getItem(getHighScoreKey())) || 0;
+}
+
+function saveHighScore(newScore){
+  const current = loadHighScore();
+  if(newScore > current){
+    localStorage.setItem(getHighScoreKey(), newScore);
+    return true;
+  }
+  return false;
 }
 
 function startGame(){
@@ -337,6 +365,7 @@ function startGame(){
   player.speed = settings.speed;
   playerTimer = settings.timer;
   obstacleCount = settings.obstacles;
+  resetObstacles = settings.resetObstacles;
 
   score = 0;
   currQuestionIndex = 0;
@@ -347,9 +376,10 @@ function startGame(){
   scoreDisplay.textContent = `SCORE: ${score}`;
   livesDisplay.textContent = `LIVES: ${player.lives}`;
   questionsDisplay.textContent = `Q: 1/${questions.length}`;
+  highScoreDisplay.textContent = `BEST: ${loadHighScore()}`;
 
   player.x = canvas.width  / 2 - player.size / 2;
-  player.y = canvas.height / 2 - player.size / 2;
+  player.y = canvas.height / 2 + 50;
 
   startScreen.classList.add("hidden");
   gameScreen.classList.remove("hidden");
@@ -360,6 +390,7 @@ function startGame(){
 let zones = generateZones();
 let obstacles = [];
 let obstacleCount = 0;
+let resetObstacles = 0;
 const keys = {};
 
 window.addEventListener("keydown", e => {
@@ -427,19 +458,26 @@ for (const o of obstacles) {
     player.y < o.y + o.h &&
     player.y + player.size > o.y
   ) {
-    const fromLeft   = (player.x + player.size) - o.x;
-    const fromRight  = (o.x + o.w) - player.x;
-    const fromTop    = (player.y + player.size) - o.y;
-    const fromBottom = (o.y + o.h) - player.y;
+    if (o.reset && !roundLocked) {
+      // Send player back to center
+      player.x = canvas.width  / 2 - player.size / 2;
+      player.y = canvas.height / 2 + 50;
+      spawnParticles(player.x, player.y, "#ff8c00");
+    } else if (!o.reset){
+      const fromLeft   = (player.x + player.size) - o.x;
+      const fromRight  = (o.x + o.w) - player.x;
+      const fromTop    = (player.y + player.size) - o.y;
+      const fromBottom = (o.y + o.h) - player.y;
+      const min = Math.min(fromLeft, fromRight, fromTop, fromBottom);
+      
+      if (min === fromLeft)   player.x = o.x - player.size;
+      if (min === fromRight)  player.x = o.x + o.w;
+      if (min === fromTop)    player.y = o.y - player.size;
+      if (min === fromBottom) player.y = o.y + o.h;
+    }
+  } 
+}
 
-    const min = Math.min(fromLeft, fromRight, fromTop, fromBottom);
-
-    if (min === fromLeft)   player.x = o.x - player.size;
-    if (min === fromRight)  player.x = o.x + o.w;
-    if (min === fromTop)    player.y = o.y - player.size;
-    if (min === fromBottom) player.y = o.y + o.h;
-  }
-} 
 checkAnswer();
 }
 
@@ -549,22 +587,36 @@ function drawObstacles() {
   const radius = 6;
 
   for (const o of obstacles) {
+
+    const color = o.reset ? "#ff8c00" : "#ff2d6f"
     // Fill
     ctx.beginPath();
     ctx.roundRect(o.x, o.y, o.w, o.h, radius);
-    ctx.fillStyle = "rgba(255, 60, 60, 0.15)";
+    ctx.fillStyle = o.reset ? "rgba(255, 140, 0 , 0.15)" : "rgba(255, 60, 60, 0.15)";
     ctx.fill();
 
     // Neon border
     ctx.save();
-    ctx.shadowColor = "#ff2d6f";
+    ctx.shadowColor = color;
     ctx.shadowBlur  = 16;
-    ctx.strokeStyle = "#ff2d6f";
+    ctx.strokeStyle = color;
     ctx.lineWidth   = 2;
     ctx.beginPath();
     ctx.roundRect(o.x, o.y, o.w, o.h, radius);
     ctx.stroke();
     ctx.restore();
+
+    if (o.reset) {
+      ctx.save();
+      ctx.font         = "16px 'Press Start 2P'";
+      ctx.fillStyle    = "#ff8c00";
+      ctx.textAlign    = "center";
+      ctx.textBaseline = "middle";
+      ctx.shadowColor  = "#ff8c00";
+      ctx.shadowBlur   = 10;
+      ctx.fillText("!", o.x + o.w / 2, o.y + o.h / 2);
+      ctx.restore();
+    }
   }
 }
 
