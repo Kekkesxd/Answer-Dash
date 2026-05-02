@@ -35,7 +35,7 @@ const player = {
 const difficultySettings = {
   easy : {lives: 5, speed: 3.8, timer : 10 , obstacles: 0, resetObstacles :0},
   medium: {lives: 4, speed: 3.8, timer: 8, obstacles: 8, resetObstacles: 4},
-  hard: {lives : 3 , speed: 3.8, timer: 6, obstacles: 10, resetObstacles: 10}
+  hard: {lives : 3 , speed: 3.8, timer: 6, obstacles: 15, resetObstacles: 10}
 }
 
 const themeFiles ={
@@ -649,7 +649,7 @@ function drawQuestionBox(){
   ctx.textBaseline = "middle";
   ctx.shadowColor  = "#00ffb4";
   ctx.shadowBlur   = 10;
-  ctx.fillText(currQuestion ? currQuestion.question: "Loading....", canvas.width / 2, qb.y + qb.h / 2);
+  wrapText(currQuestion ? currQuestion.question: "Loading....", canvas.width / 2, qb.y + qb.h / 2, qb.w - 40, 22);
   ctx.restore();
 
   // Timer
