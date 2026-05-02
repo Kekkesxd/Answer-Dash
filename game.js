@@ -15,6 +15,9 @@ const restartButton = document.getElementById("restartButton");
 const questionsDisplay = document.getElementById("questionsDisplay");
 const rulesPopup = document.getElementById("rulesPopup");
 const rulesButton = document.getElementById("rulesButton");
+const themeSelect = document.getElementById("theme");
+
+let selectedTheme ="";
 
 let gameRunning = false;
 let playerName = "";
@@ -34,9 +37,17 @@ const difficultySettings = {
   hard: {lives : 3 , speed: 3.8, timer: 6, obstacles: 10}
 }
 
+const themeFiles ={
+  general : "questions/questionsGeneral.json",
+  pop: "questions/questionsPop.json",
+  potter: "questions/questionsPotter.json",
+  gaming: "questions/questionsGames.json"
+};
+
 startButton.addEventListener("click", () => {
   playerName = playerNameInput.value.trim();
   selectedDiff = difficultySelect.value;
+  selectedTheme = themeSelect.value;
 
   if(playerName === ""){
     alert("Please Enter your name!");
@@ -45,6 +56,10 @@ startButton.addEventListener("click", () => {
 
   if(selectedDiff == ""){
     alert("Please select a difficulty!");
+    return;
+  }
+  if(selectedTheme === ""){
+    alert("Please select a theme!");
     return;
   }
 
@@ -100,8 +115,8 @@ function generateZones() {
   const topOffset = 160;
   const outerPad = 40;   // padding from canvas edges
   const innerPad = 150;  // padding from the center dividing lines
-  const zw = 200;
-  const zh = 80;
+  const zw = 260;
+  const zh = 90;
 
   const qw = canvas.width  / cols;
   const qh = (canvas.height - topOffset) / rows;
@@ -209,7 +224,7 @@ function shuffleAnswers(question) {
 
 async function loadQuestions() {
   try{
-    const response = await fetch("questions.json");
+    const response = await fetch(themeFiles[selectedTheme]);
     questions = await response.json();
 
     //shuffling the questions
@@ -217,6 +232,7 @@ async function loadQuestions() {
       const j = Math.floor(Math.random() * (i+1));
       [questions[i], questions[j]] = [questions[j], questions[i]];
     }
+    questions = questions.slice(0,10);
     currQuestion = shuffleAnswers(questions[0]);
     zones = generateZones();
     obstacles = generateObstacles();
@@ -490,14 +506,42 @@ function drawZones() {
 
     // Label text
     ctx.save();
-    ctx.font         = "13px 'Press Start 2P'";
+    ctx.font         = "11px 'Press Start 2P'";
     ctx.fillStyle    = z.neon;
     ctx.textAlign    = "center";
     ctx.textBaseline = "middle";
     ctx.shadowColor  = z.neon;
     ctx.shadowBlur   = 10;
-    ctx.fillText(currQuestion ? currQuestion.answers[i] : z.label, z.x + z.w / 2, z.y + z.h / 2);
+    wrapText(currQuestion ? currQuestion.answers[i] : z.label, z.x + z.w / 2, z.y + z.h / 2, z.w - 20, 18);
     ctx.restore();
+  }
+}
+
+function wrapText(text, x, y, maxWidth, lineHeight) {
+  const words = text.split(" ");
+  let line = "";
+  let lines = [];
+
+  for (let i = 0; i < words.length; i++) {
+    const testLine = line + words[i] + " ";
+    const testWidth = ctx.measureText(testLine).width;
+
+    if (testWidth > maxWidth && i > 0) {
+      lines.push(line.trim());
+      line = words[i] + " ";
+    } else {
+      line = testLine;
+    }
+  }
+  lines.push(line.trim());
+
+  // Center vertically
+  const totalHeight = lines.length * lineHeight;
+  let startY = y - totalHeight / 2 + lineHeight / 2;
+
+  for (const l of lines) {
+    ctx.fillText(l, x, startY);
+    startY += lineHeight;
   }
 }
 
