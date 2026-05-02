@@ -29,9 +29,9 @@ const player = {
 };
 
 const difficultySettings = {
-  easy : {lives: 5, speed: 3, timer : 10 , obstacles: 4},
-  medium: {lives: 4, speed: 3, timer: 8, obstacles: 8},
-  hard: {lives : 3 , speed: 3, timer: 6, obstacles: 10}
+  easy : {lives: 5, speed: 3.8, timer : 10 , obstacles: 4},
+  medium: {lives: 4, speed: 3.8, timer: 8, obstacles: 8},
+  hard: {lives : 3 , speed: 3.8, timer: 6, obstacles: 10}
 }
 
 startButton.addEventListener("click", () => {
@@ -65,7 +65,7 @@ restartButton.addEventListener("click", () => {
   scoreDisplay.textContent = "SCORE: 0";
   livesDisplay.textContent = "LIVES: 3";
   timerDisplay.textContent = "TIME: 10";
-  questionsDisplay.textContent ="Q: 1/10";
+  questionsDisplay.textContent =`Q: 1/${questions.length}`;
 
   // Clear inputs
   playerNameInput.value  = "";
@@ -91,6 +91,8 @@ let resultCorrectIndex = null;
 let resultChosenIndex = null;
 
 let score = 0;
+let particles = [];
+
 
 function generateZones() {
   const cols = 2;
@@ -227,7 +229,7 @@ async function loadQuestions() {
 function checkAnswer() {
   if (roundLocked) return;
 
-  const inset = 35;
+  const inset = 30;
 
   for (const [i, z] of zones.entries()) {
     if (
@@ -244,7 +246,9 @@ function checkAnswer() {
       if( i === currQuestion.correct){
         score++;
         scoreDisplay.textContent = `SCORE: ${score}`;
+        spawnParticles(player.x, player.y, "#00ff88");
       }else{
+        spawnParticles(player.x, player.y, "#ff2d6f");
         player.lives--;
         livesDisplay.textContent = `LIVES: ${player.lives}`;
         if(player.lives <= 0 ){
@@ -359,12 +363,23 @@ function update() {
    if (keys["arrowdown"]  || keys["s"]) player.y += player.speed;
    if (keys["arrowleft"]  || keys["a"]) player.x -= player.speed; 
    if (keys["arrowright"] || keys["d"]) player.x += player.speed; 
+   
+   for(let s = 0; s < 3; s++){
+    particles.push({
+      x: player.x + Math.random() * player.size,
+      y: player.y + Math.random() * player.size,
+      vx: (Math.random() - 0.5) * 1.5,
+      vy: (Math.random() - 0.5) * 1.5,
+      life: 0.8,
+      size: Math.random() * 4 + 2,
+      color: "#bf5fff"
+   })
   }
+}
 
-
-  //keeping the player in boundary
-  player.x = Math.max(0, Math.min(canvas.width  - player.size, player.x));
-  player.y = Math.max(0, Math.min(canvas.height - player.size, player.y));
+//keeping the player in boundary
+player.x = Math.max(0, Math.min(canvas.width  - player.size, player.x));
+player.y = Math.max(0, Math.min(canvas.height - player.size, player.y));
 
 
 //Question Box collision
@@ -408,27 +423,31 @@ for (const o of obstacles) {
     if (min === fromTop)    player.y = o.y - player.size;
     if (min === fromBottom) player.y = o.y + o.h;
   }
-}
-
+} 
 checkAnswer();
 }
 
 function draw() {
+  ctx.fillStyle = "#060609";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
   drawBackground();
   
   drawGrid();
   drawQuestionBox(); 
   drawObstacles();
   drawZones();
+  drawParticles();
   drawPlayer();
   drawCountdown();
+  drawScanlines();
 }
 
 function drawPlayer() {
   ctx.save();
   ctx.shadowColor = "#bf5fff";
   ctx.shadowBlur  = 28;
-  ctx.fillStyle   = "rgba(191, 95, 255, 0.8)";
+  ctx.fillStyle   = "rgba(191, 95, 255, 0.85)";
   ctx.fillRect(player.x, player.y, player.size, player.size);
   ctx.strokeStyle = "#ffffff";
   ctx.lineWidth   = 2;
@@ -597,6 +616,54 @@ function drawGrid() {
   }
 
   ctx.restore();
+}
+
+function drawScanlines() {
+  ctx.save();
+  ctx.globalAlpha = 0.035;
+  ctx.fillStyle   = "#000000";
+
+  for (let y = 0; y < canvas.height; y += 3) {
+    ctx.fillRect(0, y, canvas.width, 1);
+  }
+
+  ctx.restore();
+}
+
+function spawnParticles(x,y,color){
+  for (let i = 0; i < 10; i++ ){
+    particles.push({
+      x: x + Math.random() * 28,
+      y: y + Math.random() * 28,
+      vx: (Math.random() - 0.5) * 3.5,
+      vy: (Math.random() - 0.5) * 3.5,
+      life: 1,
+      color
+    })
+  }
+}
+
+function drawParticles() {
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+
+    p.x    += p.vx;
+    p.y    += p.vy;
+    p.life -= 0.035;
+
+    if (p.life <= 0) {
+      particles.splice(i, 1);
+      continue;
+    }
+
+    ctx.save();
+    ctx.globalAlpha = p.life * 0.9;
+    ctx.shadowColor = p.color;
+    ctx.shadowBlur  = 12;
+    ctx.fillStyle   = p.color;
+    ctx.fillRect(p.x, p.y, p.size || 3, p.size || 3);
+    ctx.restore();
+  }
 }
 
 function drawCountdown() {
