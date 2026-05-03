@@ -12,7 +12,7 @@
   { "question": "Who is the main character in The Witcher 3?", "answers": ["Ciri", "Yennefer", "Geralt of Rivia", "Dandelion"], "correct": 2 },
   { "question": "What is the name of Links horse in Zelda?", "answers": ["Roach", "Epona", "Shadowmere", "Argo"], "correct": 1 },
   { "question": "What game features the Necromorphs?", "answers": ["Resident Evil", "Dead Space", "Silent Hill", "Alien Isolation"], "correct": 1 },
-  { "question": "Who made the Nintendo Switch?", "answers": ["Sony", "Microsoft", "Sega", "Nintendo"], "correct": 3 },
+  { "question": "Who made the Switch?", "answers": ["Sony", "Microsoft", "Sega", "Nintendo"], "correct": 3 },
   { "question": "What is the max level in the original Dark Souls?", "answers": ["99", "200", "713", "999"], "correct": 2 },
   { "question": "What game features the Spartan II program?", "answers": ["Gears of War", "Destiny", "Halo", "Mass Effect"], "correct": 2 },
   { "question": "What is the name of the dog in Duck Hunt?", "answers": ["Rex", "Buddy", "The Duck Hunt Dog", "Max"], "correct": 2 },
