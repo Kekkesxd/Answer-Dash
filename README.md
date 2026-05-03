@@ -20,7 +20,7 @@ Use **WASD** or the **Arrow Keys** to move your player around the canvas. A ques
 
 - 4 question themes — General Knowledge, Pop Culture, Harry Potter, Gaming
 - 3 difficulty levels — Easy, Medium, Hard
-- 10 random questions selected per game from a pool of 30+
+- 20 random questions selected per game from a pool of 30+
 - Questions and answers shuffled every game so no two runs are the same
 - Randomised answer zones that change position each round
 - Obstacles that scatter across the canvas per round
