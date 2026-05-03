@@ -111,7 +111,11 @@ Each JSON file follows this structure:
 
 ## Screenshots
 
-> Start screen → Rules popup → Gameplay → End screen
+> Start screen: <img width="1006" height="604" alt="image" src="https://github.com/user-attachments/assets/10fcb541-930f-4434-b7c1-1ae9dec47c3b" />
+> Rules popup: <img width="704" height="394" alt="image" src="https://github.com/user-attachments/assets/2c98d606-d7de-480d-82e8-e22a7c3d65e6" />
+> Gameplay: <img width="1530" height="631" alt="image" src="https://github.com/user-attachments/assets/b2fafa6d-14c4-4ab2-b312-cae0a1aaf765" />
+> End screen: <img width="1008" height="605" alt="image" src="https://github.com/user-attachments/assets/0ba64272-8fa3-4626-b501-6773f66e7566" />
+
 
 ---
 
