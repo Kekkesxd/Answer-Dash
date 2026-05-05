@@ -24,6 +24,7 @@ let gameRunning = false;
 let playerName = "";
 let selectedDiff = "";
 let backgroundMusic = null;
+let screenFlashAlpha = 0;
 
 const player = {
     x: canvas.width / 2 - 14,
@@ -34,10 +35,11 @@ const player = {
 };
 
 const difficultySettings = {
-  easy : {lives: 5, speed: 3.8, timer : 10 , obstacles: 0, resetObstacles :0, movingZones: false, music: "music/easy.flac"},
-  medium: {lives: 4, speed: 3.8, timer: 8, obstacles: 8, resetObstacles: 4, movingZones: false, music: "music/medium.flac"},
-  hard: {lives : 3 , speed: 3.8, timer: 6, obstacles: 15, resetObstacles: 10, movingZones: false, music: "music/hard.flac"},
-  arel: {lives: 2, speed: 3.8, timer: 5, obstacles: 20, resetObstacles: 20, movingZones:true, zoneSpeed:1, zoneShrinkRate: 0.25, minZoneW: 120, minZoneH: 45, music: "music/Arel.flac"}
+  easy : {lives: 5, speed: 3.8, timer : 10 , obstacles: 0, resetObstacles :0, movingZones: false, music: "music/easy.flac", timerFlash : true},
+  medium: {lives: 4, speed: 3.8, timer: 8, obstacles: 8, resetObstacles: 4, movingZones: false, music: "music/medium.flac", timerFlash : true},
+  hard: {lives : 3 , speed: 3.8, timer: 6, obstacles: 15, resetObstacles: 10, movingZones: false, music: "music/hard.flac", timerFlash : true},
+  arel: {lives: 2, speed: 3.8, timer: 5, obstacles: 20, resetObstacles: 20, movingZones:true, zoneSpeed:1, zoneShrinkRate: 0.25, minZoneW: 120,
+     minZoneH: 45, music: "music/Arel.flac",timerFlash : false}
 };
 
 const myThemes = [
@@ -439,6 +441,9 @@ function checkAnswer() {
       player.y + player.size  - inset > z.y
     ) {
       roundLocked = true;
+      if(selectedDiff === "hard"){
+        stopMusic();
+      }
       resultCorrectIndex = currQuestion.correct;
       resultChosenIndex = i;
 
@@ -543,7 +548,9 @@ function saveHighScore(newScore){
 function startGame(){
   const settings = difficultySettings[selectedDiff];
   currentSettings = settings;
+  if(selectedDiff !== "hard"){
   playMusic();
+  }
   gameRunning = true;
 
   player.lives = settings.lives;
@@ -590,6 +597,9 @@ window.addEventListener("keyup", e => {
 });
 
 function update() {
+  if(screenFlashAlpha > 0){
+    screenFlashAlpha -= 0.025;
+  }
   if(!roundLocked){
    if (keys["arrowup"]    || keys["w"]) player.y -= player.speed;
    if (keys["arrowdown"]  || keys["s"]) player.y += player.speed;
@@ -678,6 +688,7 @@ function draw() {
   drawZones();
   drawParticles();
   drawPlayer();
+  drawScreenFlash();
   drawCountdown();
   drawScanlines();
 }
@@ -962,9 +973,23 @@ function drawCountdown() {
   ctx.restore();
 }
 
+function drawScreenFlash() {
+  if (screenFlashAlpha <= 0) return;
+
+  ctx.save();
+  ctx.globalAlpha = screenFlashAlpha;
+  ctx.fillStyle = "#ff2d6f";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.restore();
+}
+
 function startTimer(){
   clearInterval(timerInterval);
   timeLeft = playerTimer;
+
+  if(selectedDiff === "hard"){
+    playMusic();
+  }
 
   timerDisplay.textContent = `TIME: ${timeLeft}`;
   timerDisplay.style.color = "#00ffb4";
@@ -976,9 +1001,15 @@ function startTimer(){
     timerDisplay.textContent = `TIME: ${timeLeft}`;
     timerDisplay.style.color = timeLeft <= 3 ? "#ff2d6f" : "#00ffb4";
     timerDisplay.style.textShadow = timeLeft <= 3 ? "0 0 10px #ff2d6f" : "0 0 10px #00ffb4";
+    if(currentSettings?.timerFlash && timeLeft <= 3){
+      screenFlashAlpha = 0.25;
+    }
     if(timeLeft <= 0){
       clearInterval(timerInterval);
       roundLocked = true;
+      if(selectedDiff === "hard"){
+        stopMusic();
+      }
       resultCorrectIndex = currQuestion.correct;
       resultChosenIndex = null;
 
