@@ -1,0 +1,1142 @@
+[
+  {
+    "question": "Nolan Bushnell, co-creator of Computer Space and co-founder of Atari, also founded the restaurant/arcade chain now known as what?",
+    "answers": [
+      "Atari",
+      "Chuck E. Cheese's",
+      "ShowBiz Pizza",
+      "GameWorks"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Who is the first gym leader you fight in 'Pokémon' for the Game Boy?",
+    "answers": [
+      "Misty",
+      "Blaine",
+      "Lt. Surge",
+      "Brock"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "What was the Earth's first artificial satellite?",
+    "answers": [
+      "Vostok 1",
+      "Sputnik 1",
+      "Mars Pathfinder",
+      "Explorer 1"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What do you need to collect 100 of to get an extra life in Super Mario Bros.?",
+    "answers": [
+      "Chaos Emeralds",
+      "Bananas",
+      "Rings",
+      "Coins"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "What was Sega’s first home video game console?",
+    "answers": [
+      "SG-1000",
+      "Sega Master System",
+      "Sega Genesis",
+      "Sega Saturn"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What member of the original StarFox team betrays the group to join StarWolf?",
+    "answers": [
+      "Peppy Hare",
+      "Wolf O'Donnell",
+      "Pigma Dengar",
+      "Falco Lombardi"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Who invented Tetris?",
+    "answers": [
+      "Alexey Pajitnov",
+      "Ryu",
+      "Sir Christopher Cockerell",
+      "Samus Aran"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What does FTP stand for?",
+    "answers": [
+      "File Transfer Protocol",
+      "Light Emitting Diode",
+      "Common Business Oriented Language",
+      "Vertical Take-Off and Landing"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What alternate dimension does Link find himself in in Majora's Mask?",
+    "answers": [
+      "Termina",
+      "Twilight Realm",
+      "Holodrum",
+      "Labrynna"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "In Adventure, which castles require the bridge to explore fully?",
+    "answers": [
+      "Yellow Castle",
+      "Black and White Castles",
+      "Black Castle",
+      "Red Castle"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "In the game Joust, what animal was your mount?",
+    "answers": [
+      "A skunk",
+      "A hedgehog",
+      "A fox",
+      "An ostrich"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "What game takes place on the fantastic island of Koholint?",
+    "answers": [
+      "Majora's Mask",
+      "Link's Awakening",
+      "Wind Waker",
+      "Ocarina of Time"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What colour is the 'Black box' on commercial planes?",
+    "answers": [
+      "Orange",
+      "Black",
+      "Green",
+      "White"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What is your character's name in the 'Legend of Zelda' series?",
+    "answers": [
+      "Navi",
+      "Ganon",
+      "Link",
+      "Epona"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "How many buttons (excluding the control pad) did the original NES controller have?",
+    "answers": [
+      "1",
+      "4",
+      "123",
+      "10"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What are names of the two brothers in the Double Dragon games?",
+    "answers": [
+      "Cervantes",
+      "Billy and Jimmy",
+      "Ness",
+      "Lucca"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "In the game \"Chrono Trigger,\" what is Lucca's mother's name?",
+    "answers": [
+      "Robo",
+      "Crono",
+      "Marle",
+      "Lara"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Who is the famed musical director for Square's Final Fantasy series?",
+    "answers": [
+      "Hideo Kojima",
+      "Chudnovsky",
+      "Nobuo Uematsu",
+      "Vanessa Lewis"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What was the historic Nintendo development division associated with Shigeru Miyamoto called?",
+    "answers": [
+      "Intelligent Systems",
+      "EAD",
+      "HAL Laboratory",
+      "Game Freak"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What number is the Pokémon \"Scyther\" in the Pokémon Game Boy games?",
+    "answers": [
+      "123",
+      "2",
+      "$500,000",
+      "1"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Which was the first manned aircraft to exceed the speed of sound?",
+    "answers": [
+      "Wright Flyer",
+      "Flyer",
+      "Spirit of St. Louis",
+      "Bell X-1"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Which RPG series features a line of inventors of the name \"Shaia?\"",
+    "answers": [
+      "Banjo-Kazooie",
+      "Lufia",
+      "ToeJam and Earl",
+      "Mega Man 4"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What does FORTRAN stand for?",
+    "answers": [
+      "Formula Translation",
+      "Compact Disc Read-Only Memory",
+      "Computerized Axial Tomography",
+      "Hyper Text Markup Language"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "The Sega Genesis game about two lost aliens looking for their spaceship was called what?",
+    "answers": [
+      "ToeJam and Earl",
+      "Final Fantasy VII",
+      "Radar Scope",
+      "Donkey Kong"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Who is the main character from Nintendo's 'Earthbound'?",
+    "answers": [
+      "Ness",
+      "Robo",
+      "Falco Lombardi",
+      "Mileena"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What was invented over 3000 years ago that is now considered the first 'computer'?",
+    "answers": [
+      "ENIAC",
+      "Abacus",
+      "Vacuum tube",
+      "Difference Engine"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "In which Mega Man game did Mega Man first gain the ability to charge up his shots?",
+    "answers": [
+      "Tetris",
+      "Majora's Mask",
+      "Mega Man 4",
+      "Virtua Fighter 4"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What does the 'x' mean in CD-ROM speeds such as 32x?",
+    "answers": [
+      "A multiple of standard CD-ROM speed",
+      "Frames per second",
+      "Kilobits per second",
+      "Megabytes per second"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "In the Sonic the Hedgehog series, what serves as your energy?",
+    "answers": [
+      "Chaos Emeralds",
+      "Rings",
+      "Coins",
+      "Bananas"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What arcade game did Shigeru Miyamoto design Donkey Kong as a replacement for?",
+    "answers": [
+      "Classic NES Excite Bike",
+      "Contra",
+      "Radar Scope",
+      "Final Fantasy VII"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "In Sonic the Hedgehog, the character Knuckles is what species?",
+    "answers": [
+      "A skunk",
+      "Echidna",
+      "A hedgehog",
+      "A lizard"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What does LED stand for?",
+    "answers": [
+      "Vertical Take-Off and Landing",
+      "Robotic Operating Buddy",
+      "Light Emitting Diode",
+      "Compact Disc Read-Only Memory"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "In 'Pac-Man' for the Atari 2600, how many points were each pellet worth?",
+    "answers": [
+      "1",
+      "3",
+      "2",
+      "10"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What was the first game created by Rare?",
+    "answers": [
+      "The Legend of Zelda",
+      "Xenophobe",
+      "Slalom",
+      "Halo"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "On what non-Nintendo console can you find Zelda games?",
+    "answers": [
+      "Sega Master System",
+      "Nintendo 64",
+      "Philips CD-I",
+      "Atari 2600"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What is IRC an acronym for?",
+    "answers": [
+      "International Business Machines",
+      "Vertical Take-Off and Landing",
+      "Hyper Text Markup Language",
+      "Internet Relay Chat"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Who is the developer at Nintendo responsible for classics like Donkey Kong, Super Mario Bros., and The Legend of Zelda?",
+    "answers": [
+      "Shigeru Miyamoto",
+      "Microsoft",
+      "Sega",
+      "Apple"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "In Chrono Trigger, who is the \"Master of War?\"",
+    "answers": [
+      "Ayla",
+      "Marle",
+      "Crono",
+      "Spekkio"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "What practical problem was the QWERTY keyboard layout designed to reduce on early typewriters?",
+    "answers": [
+      "Typebar jams",
+      "Screen flicker",
+      "Battery drain",
+      "Cable length"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Seiko’s timing-printer work for the 1964 Tokyo Olympics later evolved into which Epson product?",
+    "answers": [
+      "EP-101 electronic mini-printer",
+      "LaserWriter",
+      "Game Boy Printer",
+      "Inkjet Stylus Color"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Secret of Evermore was entirely produced in which country?",
+    "answers": [
+      "Japan",
+      "USA",
+      "Canada",
+      "Russia"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "The Internet Relay Chat program is more commonly known as what?",
+    "answers": [
+      "LED",
+      "VTOL",
+      "IRC",
+      "FTP"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What is Mario's profession?",
+    "answers": [
+      "Electrician",
+      "Chef",
+      "Doctor",
+      "Plumber"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "In the Mystical Ninja series, who is Goemon's sidekick?",
+    "answers": [
+      "Ebisumaru",
+      "Dr. Light",
+      "Fox McCloud",
+      "Mario"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "According to the original Super Mario Bros. story, what were many Mushroom Kingdom residents transformed into?",
+    "answers": [
+      "Stones, bricks, and plants",
+      "Goombas and Koopas",
+      "Coins and rings",
+      "Warp pipes"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Who wrote the song, \"Pac-Man Fever?\"",
+    "answers": [
+      "Buckner and Garcia",
+      "Gunpei Yokoi",
+      "Linus Torvalds",
+      "Steve Wozniak"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Which arcade game is a sci-fi shooter about clearing alien-infested space stations?",
+    "answers": [
+      "Xenophobe",
+      "Tetris",
+      "Super Mario Bros.",
+      "Contra"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Who is Mega Man's creator?",
+    "answers": [
+      "Chris Sawyer",
+      "Dr. Light",
+      "Samus Aran",
+      "Gabe Newell"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What was the first Arcade game ever released?",
+    "answers": [
+      "Computer Space",
+      "Donkey Kong",
+      "Classic NES Excite Bike",
+      "Metroid"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What special track is unlocked in 'Excite Bike 64' if you finish the tutorial?",
+    "answers": [
+      "Classic NES Excite Bike",
+      "Green Hill Zone",
+      "Rainbow Road",
+      "Big Blue"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "In Ultimate Mortal Kombat 3, what animal does Mileena turn into in her Animality?",
+    "answers": [
+      "A turtle",
+      "A skunk",
+      "A hedgehog",
+      "A fox"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Who is the third opponent in 'Super Smash Brothers'?",
+    "answers": [
+      "Robo",
+      "Ebisumaru",
+      "Fox McCloud",
+      "Roll"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What was the Nintendo 64’s early development codename?",
+    "answers": [
+      "Blackcomb",
+      "Project Reality",
+      "Natal",
+      "Ultra 64"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What was the first version of Microsoft Windows to have networking capabilities?",
+    "answers": [
+      "Windows NT",
+      "Windows 95",
+      "Windows for Workgroups",
+      "Windows 286"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What entertainment product did Nintendo make before entering the video game business?",
+    "answers": [
+      "Playing cards",
+      "Trading cards",
+      "Toy robots",
+      "Board games"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "The Hylians come from what game series?",
+    "answers": [
+      "Majora's Mask",
+      "Adventure of Link",
+      "The Legend of Zelda",
+      "Link's Awakening"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Which character was introduced in 'Super Street Fighter II'?",
+    "answers": [
+      "Lara",
+      "Cammy",
+      "Billy and Jimmy",
+      "Spekkio"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What does ASCII stand for?",
+    "answers": [
+      "Hyper Text Markup Language",
+      "International Business Machines",
+      "Formula Translation",
+      "American Standard Code for Information Interchange"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "What is often cited as Nintendo’s first video game release?",
+    "answers": [
+      "EVR Race",
+      "Radar Scope",
+      "Donkey Kong",
+      "Sheriff"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "The Minus World in the NES version of Super Mario Bros. is an endless copy of which stage?",
+    "answers": [
+      "World 7-2",
+      "World 1-2",
+      "World 4-2",
+      "World 8-4"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What is the name of the cloud-riding, glasses-wearing koopa in the Super Mario Bros. series?",
+    "answers": [
+      "A hedgehog",
+      "Goomba",
+      "Lakitu",
+      "A skunk"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Who invented the Telephone?",
+    "answers": [
+      "Roll",
+      "Sid Meier",
+      "Alexander Graham Bell",
+      "Alexey Pajitnov"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What country did the operating system 'Linux' come from?",
+    "answers": [
+      "Finland",
+      "Canada",
+      "USA",
+      "Japan"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "In 'Adventure', which castle had a dark maze in it when you played on any but the easiest difficult level?",
+    "answers": [
+      "The Black Castle",
+      "Red Castle",
+      "Black and White Castles",
+      "Yellow Castle"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What does the acronym COBOL stand for?",
+    "answers": [
+      "International Business Machines",
+      "Common Business Oriented Language",
+      "Computerized Axial Tomography",
+      "Light Emitting Diode"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What was the name of the Wright brothers’ first powered aircraft?",
+    "answers": [
+      "Wright Flyer",
+      "Bell X-1",
+      "Spirit of St. Louis",
+      "Concorde"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Linux is a clone of what operating system?",
+    "answers": [
+      "BSD",
+      "UNIX",
+      "MS-DOS",
+      "Windows"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "In Super Mario Bros. 2, how many extra lives do you get for spinning three 7s on the slot machine?",
+    "answers": [
+      "32",
+      "1987",
+      "4",
+      "10"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "The quote \"You spoony bard!\" is from what game?",
+    "answers": [
+      "Final Fantasy IV",
+      "Secret of Evermore",
+      "SaGa 1-3",
+      "Kabuki Klash"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Which Duke Nukem game was released for the Nintendo 64?",
+    "answers": [
+      "Duke Nukem 64",
+      "Duke Nukem Forever",
+      "Duke Nukem Advance",
+      "Duke Nukem: Time to Kill"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Who programmed Roller Coaster Tycoon?",
+    "answers": [
+      "Dr. Light",
+      "Chris Sawyer",
+      "Ryu",
+      "Falco Lombardi"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Which NES cartridge is famous for using battery-backed saving instead of passwords?",
+    "answers": [
+      "Link's Awakening",
+      "The Legend of Zelda",
+      "Lufia",
+      "Chrono Trigger"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What is the signature move of the Bombs in the Final Fantasy series?",
+    "answers": [
+      "Shoryuken",
+      "Spinning Bird Kick",
+      "Sonic Boom",
+      "Exploder"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "In the Soul Edge series, who is known as \"The Dandy of the South Seas?\"",
+    "answers": [
+      "Cervantes",
+      "Ultra 64",
+      "Nintendo Entertainment System",
+      "Dual Shock"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What does the acronym \"NES\" stand for?",
+    "answers": [
+      "File Transfer Protocol",
+      "Formula Translation",
+      "Nintendo Entertainment System",
+      "Vertical Take-Off and Landing"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What does 'IBM' stand for?",
+    "answers": [
+      "Formula Translation",
+      "Internet Relay Chat",
+      "International Business Machines",
+      "Nintendo Entertainment System"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Which Writer established the three laws of robotics?",
+    "answers": [
+      "Philip K. Dick",
+      "Robert Heinlein",
+      "Ray Bradbury",
+      "Isaac Asimov"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "If you're stomping Goombas, what game are you playing?",
+    "answers": [
+      "Contra",
+      "Super Mario Bros.",
+      "Life Force",
+      "Majora's Mask"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Mega Man's traditional nemesis in the Mega Man series is whom?",
+    "answers": [
+      "Marle",
+      "Dr. Wily",
+      "Crono",
+      "Cervantes"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Konami's classic shooter Salamander is better known in the U.S. as what?",
+    "answers": [
+      "Life Force",
+      "SaGa 1-3",
+      "ToeJam and Earl",
+      "Computer Space"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Who is Mega Man's sister?",
+    "answers": [
+      "Falco Lombardi",
+      "Roll",
+      "Dr. Light",
+      "Samus Aran"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What is a \"koopa?\"",
+    "answers": [
+      "A fox",
+      "Goomba",
+      "Bowser",
+      "A turtle"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "On aircraft what does VTOL stand for?",
+    "answers": [
+      "Internet Relay Chat",
+      "Vertical Take-Off and Landing",
+      "Formula Translation",
+      "Hyper Text Markup Language"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Who invented the Hovercraft?",
+    "answers": [
+      "Sir Christopher Cockerell",
+      "Gunpei Yokoi",
+      "Link",
+      "Buckner and Garcia"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What does the CAT in CAT-SCAN stand for?",
+    "answers": [
+      "Computerized Axial Tomography",
+      "Vertical Take-Off and Landing",
+      "Common Business Oriented Language",
+      "International Business Machines"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What is the most powerful whip in 'Castlevania 2'?",
+    "answers": [
+      "Buster Sword",
+      "Boomerang",
+      "Laser Gun",
+      "Flame Whip"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Which legendary games designer/producer created the Super Mario Bros. franchise for Nintendo?",
+    "answers": [
+      "Nobuo Uematsu",
+      "Shigeru Miyamoto",
+      "Sid Meier",
+      "Chudnovsky"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What color is the 1-Up mushroom in Super Mario Bros.?",
+    "answers": [
+      "Black",
+      "Purple",
+      "Red",
+      "Green"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "Which Atari 2600 game popularized the video-game Easter egg with a hidden creator credit?",
+    "answers": [
+      "Metroid",
+      "Secret of Evermore",
+      "Excite Bike 64",
+      "Adventure"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "What does CD-ROM stand for?",
+    "answers": [
+      "Formula Translation",
+      "Compact Disc Read-Only Memory",
+      "Vertical Take-Off and Landing",
+      "Robotic Operating Buddy"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What was the hybrid pinball/video game in the Pac-Man series?",
+    "answers": [
+      "ToeJam and Earl",
+      "Excite Bike 64",
+      "SaGa 1-3",
+      "Baby Pac-Man"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "What NASA spacecraft was launched on December 4, 1996?",
+    "answers": [
+      "Voyager 1",
+      "Vostok 1",
+      "Mars Pathfinder",
+      "Sputnik 1"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What object did you need to get to the secret room in Atari's 'Adventure'?",
+    "answers": [
+      "The dot",
+      "The sword",
+      "The map",
+      "The bridge"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Final Fantasy Legend 1-3 are known in Japan as what?",
+    "answers": [
+      "Banjo-Kazooie",
+      "EarthBound",
+      "SaGa 1-3",
+      "Majora's Mask"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What is the name of the Star Fox Team's cocky wingman?",
+    "answers": [
+      "Wolf O'Donnell",
+      "Slippy Toad",
+      "Fox McCloud",
+      "Falco Lombardi"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "How many fighters are playable in 'Street Fighter II'?",
+    "answers": [
+      "1987",
+      "2",
+      "4",
+      "8"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "How many bits are in a nibble?",
+    "answers": [
+      "16",
+      "32",
+      "4",
+      "64"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What new female fighter is introduced in 'Virtua Fighter 4'?",
+    "answers": [
+      "Vanessa Lewis",
+      "Robo",
+      "Samus Aran",
+      "Cervantes"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Who is the Linux operating system named after?",
+    "answers": [
+      "Chudnovsky",
+      "Linus Torvalds",
+      "Shigeru Miyamoto",
+      "Ken Kutaragi"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Who was the main character in the original 'Street Fighter'?",
+    "answers": [
+      "Billy and Jimmy",
+      "Mega Man",
+      "Ryu",
+      "Crono"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Manjimaru is the title character of which Japanese RPG?",
+    "answers": [
+      "Tengai Makyō II: Manji Maru",
+      "Kabuki Klash",
+      "Saturn Bomberman",
+      "DreamMix TV World Fighters"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What did the letters in ROB (the old NES peripheral) stand for?",
+    "answers": [
+      "Nintendo Entertainment System",
+      "Computerized Axial Tomography",
+      "Robotic Operating Buddy",
+      "Formula Translation"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "In the original Contra, what gun would \"S\" get you?",
+    "answers": [
+      "Flame Whip",
+      "Laser Gun",
+      "Spread Gun",
+      "Buster Sword"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Samus Aran is the protagonist of which game series?",
+    "answers": [
+      "Tetris",
+      "Metroid",
+      "Final Fantasy VII",
+      "Secret of Evermore"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What was Sony's video recorder format called?",
+    "answers": [
+      "DVD",
+      "VHS",
+      "MiniDisc",
+      "Betamax"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "What was Sony’s first handheld PlayStation controller with two analog sticks called?",
+    "answers": [
+      "Dual Analog Controller",
+      "DualShock",
+      "SIXAXIS",
+      "PlayStation Move"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Which brothers built a home-made supercomputer to calculate the digits of Pi?",
+    "answers": [
+      "Philips",
+      "Chudnovsky",
+      "Nintendo",
+      "SNK"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What does the acronym HTML stand for?",
+    "answers": [
+      "Internet Relay Chat",
+      "File Transfer Protocol",
+      "HyperText Markup Language",
+      "Formula Translation"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What is Mario's last name?",
+    "answers": [
+      "Miyamoto",
+      "Mario",
+      "Jumpman",
+      "Luigi"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "When was the first 'Final Fantasy' created?",
+    "answers": [
+      "1996",
+      "1991",
+      "1987",
+      "1972"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Circuits can be wired in parallel or what?",
+    "answers": [
+      "Resistance",
+      "Short circuit",
+      "Series",
+      "Ground"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "In what game do you collect Jiggies, Jinjos, and Feathers (amongst other things)?",
+    "answers": [
+      "Street Fighter II",
+      "Halo",
+      "Banjo-Kazooie",
+      "Excite Bike 64"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Who manufactured the first home video game system?",
+    "answers": [
+      "IBM",
+      "Magnavox",
+      "Microsoft",
+      "Konami"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Which company made the original 'Donkey Kong'?",
+    "answers": [
+      "IBM",
+      "Sony",
+      "Nintendo",
+      "Apple"
+    ],
+    "correct": 2
+  }
+]

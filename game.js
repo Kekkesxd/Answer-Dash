@@ -19,10 +19,11 @@ const themeSelect = document.getElementById("theme");
 const highScoreDisplay = document.getElementById("highScoreDisplay");
 
 let selectedTheme ="";
-
+let currentSettings = null;
 let gameRunning = false;
 let playerName = "";
 let selectedDiff = "";
+let backgroundMusic = null;
 
 const player = {
     x: canvas.width / 2 - 14,
@@ -33,17 +34,45 @@ const player = {
 };
 
 const difficultySettings = {
-  easy : {lives: 5, speed: 3.8, timer : 10 , obstacles: 0, resetObstacles :0},
-  medium: {lives: 4, speed: 3.8, timer: 8, obstacles: 8, resetObstacles: 4},
-  hard: {lives : 3 , speed: 3.8, timer: 6, obstacles: 15, resetObstacles: 10}
-}
-
-const themeFiles ={
-  general : "questions/questionsGeneral.json",
-  pop: "questions/questionsPop.json",
-  potter: "questions/questionsPotter.json",
-  gaming: "questions/questionsGames.json"
+  easy : {lives: 5, speed: 3.8, timer : 10 , obstacles: 0, resetObstacles :0, movingZones: false, music: "music/easy.flac"},
+  medium: {lives: 4, speed: 3.8, timer: 8, obstacles: 8, resetObstacles: 4, movingZones: false, music: "music/medium.flac"},
+  hard: {lives : 3 , speed: 3.8, timer: 6, obstacles: 15, resetObstacles: 10, movingZones: false, music: "music/hard.flac"},
+  arel: {lives: 2, speed: 3.8, timer: 5, obstacles: 20, resetObstacles: 20, movingZones:true, zoneSpeed:1, zoneShrinkRate: 0.25, minZoneW: 120, minZoneH: 45, music: "music/Arel.flac"}
 };
+
+const myThemes = [
+  {
+    id: "general",
+    displayName: "General Knowledge",
+    file: "questions/questionsGeneral.json"
+  },
+  {
+    id: "pop",
+    displayName: "Pop Culture",
+    file: "questions/questionsPop.json"
+  },
+  {
+    id: "potter",
+    displayName: "Hogwarts",
+    file: "questions/questionsPotter.json"
+  },
+    {
+    id: "gaming",
+    displayName: "Games",
+    file: "questions/questionsGames.json"
+  },
+    {
+    id: "Tech_Gaming",
+    displayName: "Tech and Gaming",
+    file: "questions/questionsTechGame.json"
+  }
+];
+
+themeSelect.innerHTML = `<option value="">Select Theme</option>`;
+
+for(const theme of myThemes){
+  themeSelect.innerHTML += `<option value="${theme.id}">${theme.displayName}</option>`;
+}
 
 startButton.addEventListener("click", () => {
   playerName = playerNameInput.value.trim();
@@ -150,6 +179,15 @@ function generateZones() {
         y: Math.floor(y),
         w: zw,
         h: zh,
+        
+        minW: currentSettings?.minZoneW || zw,
+        minH: currentSettings?.minZoneH || zh,
+
+        vx: currentSettings?.movingZones?(Math.random() < 0.5 ? -1 : 1) * currentSettings.zoneSpeed : 0,
+        vy: currentSettings?.movingZones?(Math.random() < 0.5 ? -1 : 1) * currentSettings.zoneSpeed : 0,
+
+        shrinkRate: currentSettings?.movingZones? currentSettings.zoneShrinkRate : 0,
+
         label: labels[i],
         neon: colors[i]
       });
@@ -159,47 +197,186 @@ function generateZones() {
   return zones;
 }
 
-function generateObstacles() {
-  const obs = [];
-  const ow  = 70;
-  const oh  = 70;
+function updateAnswerZones() {
+  if (!currentSettings?.movingZones) return;
+  if (roundLocked) return;
 
-  // Grid auto-sizes to always fit obstacleCount
-  const cols   = Math.ceil(Math.sqrt(obstacleCount * 2));
-  const rows   = Math.ceil(obstacleCount / cols);
-  const startY = 180;
-  const cellW  = canvas.width  / cols;
-  const cellH  = (canvas.height - startY) / rows;
-  const pad    = 40;
+  const topBoundary = 160;
 
-  const cells = [];
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      cells.push({ r, c });
+  for (const z of zones) {
+    // Shrink from the center
+    const centerX = z.x + z.w / 2;
+    const centerY = z.y + z.h / 2;
+
+    if (z.w > z.minW) {
+      z.w -= z.shrinkRate;
+    }
+
+    if (z.h > z.minH) {
+      z.h -= z.shrinkRate * 0.5;
+    }
+
+    z.x = centerX - z.w / 2;
+    z.y = centerY - z.h / 2;
+
+    // Move
+    z.x += z.vx;
+    z.y += z.vy;
+
+    // Bounce off canvas walls
+    if (z.x <= 0) {
+      z.x = 0;
+      z.vx *= -1;
+    }
+
+    if (z.x + z.w >= canvas.width) {
+      z.x = canvas.width - z.w;
+      z.vx *= -1;
+    }
+
+    if (z.y <= topBoundary) {
+      z.y = topBoundary;
+      z.vy *= -1;
+    }
+
+    if (z.y + z.h >= canvas.height) {
+      z.y = canvas.height - z.h;
+      z.vy *= -1;
     }
   }
 
-  // Fisher-Yates shuffle
-  for (let i = cells.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [cells[i], cells[j]] = [cells[j], cells[i]];
+  resolveZoneCollisions();
+}
+
+function resolveZoneCollisions() {
+  for (let i = 0; i < zones.length; i++) {
+    for (let j = i + 1; j < zones.length; j++) {
+      const a = zones[i];
+      const b = zones[j];
+
+      const aCenterX = a.x + a.w / 2;
+      const aCenterY = a.y + a.h / 2;
+      const bCenterX = b.x + b.w / 2;
+      const bCenterY = b.y + b.h / 2;
+
+      const dx = aCenterX - bCenterX;
+      const dy = aCenterY - bCenterY;
+
+      const overlapX = a.w / 2 + b.w / 2 - Math.abs(dx);
+      const overlapY = a.h / 2 + b.h / 2 - Math.abs(dy);
+
+      if (overlapX > 0 && overlapY > 0) {
+        if (overlapX < overlapY) {
+          const push = overlapX / 2 + 1;
+
+          if (dx < 0) {
+            a.x -= push;
+            b.x += push;
+          } else {
+            a.x += push;
+            b.x -= push;
+          }
+
+          a.vx *= -1;
+          b.vx *= -1;
+        } else {
+          const push = overlapY / 2 + 1;
+
+          if (dy < 0) {
+            a.y -= push;
+            b.y += push;
+          } else {
+            a.y += push;
+            b.y -= push;
+          }
+
+          a.vy *= -1;
+          b.vy *= -1;
+        }
+      }
+    }
   }
+}
 
-  for (let i = 0; i < obstacleCount; i++) {
-    const cell  = cells[i];
-    const cellX = cell.c * cellW;
-    const cellY = startY + cell.r * cellH;
+function playMusic(){
+  stopMusic();
 
-    const x = cellX + pad + Math.random() * Math.max(0, cellW - ow - pad * 2);
-    const y = cellY + pad + Math.random() * Math.max(0, cellH - oh - pad * 2);
+  if(!currentSettings || !currentSettings.music) return;
 
-    obs.push({
-      x: Math.floor(x),
-      y: Math.floor(y),
-      w: ow,
-      h: oh,
-      reset: i < resetObstacles
-    });
+  backgroundMusic = new Audio(currentSettings.music);
+  backgroundMusic.loop = true;
+  backgroundMusic.volume = 0.05;
+
+  backgroundMusic.play().catch(error => {
+    console.error("Music Could not play:", Error);
+  });
+}
+
+function stopMusic(){
+  if(backgroundMusic){
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+    backgroundMusic = null;
+  }
+}
+function rectsOverlap(a, b, padding = 0) {
+  return (
+    a.x - padding < b.x + b.w &&
+    a.x + a.w + padding > b.x &&
+    a.y - padding < b.y + b.h &&
+    a.y + a.h + padding > b.y
+  );
+}
+
+function generateObstacles() {
+  const obs = [];
+
+  const ow = 70;
+  const oh = 70;
+
+  const leftBound = 20;
+  const rightBound = canvas.width - ow - 20;
+  const topBound = 180;
+  const bottomBound = canvas.height - oh - 20;
+
+  const resetX = canvas.width / 2 - player.size / 2;
+  const resetY = canvas.height / 2 + 50;
+
+  const playerResetSafeZone = {
+    x: resetX - 120,
+    y: resetY - 90,
+    w: 240 + player.size,
+    h: 180 + player.size
+  };
+
+  let spacing = 45;
+  const maxAttemptsPerSpacing = 3000;
+
+  while (obs.length < obstacleCount && spacing >= 0) {
+    let attempts = 0;
+
+    while (obs.length < obstacleCount && attempts < maxAttemptsPerSpacing) {
+      attempts++;
+
+      const candidate = {
+        x: Math.floor(leftBound + Math.random() * (rightBound - leftBound)),
+        y: Math.floor(topBound + Math.random() * (bottomBound - topBound)),
+        w: ow,
+        h: oh,
+        reset: obs.length < resetObstacles
+      };
+
+      const hitsResetSafeZone = rectsOverlap(candidate, playerResetSafeZone);
+      const tooCloseToOtherObstacle = obs.some(o => rectsOverlap(candidate, o, spacing));
+
+      if (!hitsResetSafeZone && !tooCloseToOtherObstacle) {
+        obs.push(candidate);
+      }
+    }
+
+    // If it cannot fit all obstacles with the current spacing,
+    // reduce spacing and keep trying.
+    spacing -= 10;
   }
 
   return obs;
@@ -226,7 +403,12 @@ function shuffleAnswers(question) {
 
 async function loadQuestions() {
   try{
-    const response = await fetch(themeFiles[selectedTheme]);
+    const theme = myThemes.find(t => t.id === selectedTheme);
+    
+    if(!theme){
+      throw new Error("Theme not Found");
+    }
+    const response = await fetch(theme.file);
     questions = await response.json();
 
     //shuffling the questions
@@ -322,6 +504,8 @@ function startCountdown(){
 }
 
 function endGame(){
+  stopMusic();
+
   gameRunning = false;
   clearInterval(timerInterval);
 
@@ -358,7 +542,8 @@ function saveHighScore(newScore){
 
 function startGame(){
   const settings = difficultySettings[selectedDiff];
-  
+  currentSettings = settings;
+  playMusic();
   gameRunning = true;
 
   player.lives = settings.lives;
@@ -477,7 +662,7 @@ for (const o of obstacles) {
     }
   } 
 }
-
+updateAnswerZones();
 checkAnswer();
 }
 
