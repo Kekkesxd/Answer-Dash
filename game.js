@@ -39,7 +39,7 @@ const difficultySettings = {
   medium: {lives: 4, speed: 3.8, timer: 8, obstacles: 8, resetObstacles: 4, movingZones: false, music: "music/medium.flac", timerFlash : true},
   hard: {lives : 3 , speed: 3.8, timer: 6, obstacles: 15, resetObstacles: 10, movingZones: false, music: "music/hard.flac", timerFlash : true},
   arel: {lives: 2, speed: 3.8, timer: 5, obstacles: 20, resetObstacles: 20, movingZones:true, zoneSpeed:1, zoneShrinkRate: 0.25, minZoneW: 120,
-     minZoneH: 45, music: "music/Arel.flac",timerFlash : false}
+     minZoneH: 45, music: "music/Arel.flac",timerFlash : true}
 };
 
 const myThemes = [
