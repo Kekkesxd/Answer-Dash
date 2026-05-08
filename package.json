@@ -1,0 +1,33 @@
+{
+  "name": "answer-dash",
+  "version": "1.0.0",
+  "description": "A fast-paced neon arcade trivia game where you physically move your player to the correct answer zone before the timer runs out.",
+  "homepage": "https://github.com/Kekkesxd/Answer-Dash#readme",
+  "bugs": {
+    "url": "https://github.com/Kekkesxd/Answer-Dash/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kekkesxd/Answer-Dash.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "nodemon server/server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jest": "^30.4.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
