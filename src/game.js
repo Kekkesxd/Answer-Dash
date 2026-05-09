@@ -153,7 +153,6 @@ startButton.addEventListener("click", () => {
   }
 
   rulesPopup.classList.remove("hidden");
-  console.log(rulesPopup);
 })
 
 rulesButton.addEventListener("click", () => {
@@ -644,7 +643,7 @@ function endGame(){
       console.log("Leaderboard result:", result);
     })
     .catch(error =>{
-      console.error("Could not submit leaderboard score:", score);
+      console.error("Could not submit leaderboard score:", error);
     });
   }
 
@@ -702,7 +701,7 @@ function startGame(){
 
   scoreDisplay.textContent = `SCORE: ${score}`;
   livesDisplay.textContent = `LIVES: ${player.lives}`;
-  questionsDisplay.textContent = `Q: 1/${questions.length}`;
+  //questionsDisplay.textContent = `Q: 1/${questions.length}`;
   highScoreDisplay.textContent = `BEST: ${loadHighScore()}`;
 
   player.x = canvas.width  / 2 - player.size / 2;
@@ -827,9 +826,6 @@ checkAnswer();
 }
 
 function draw() {
-  ctx.fillStyle = "#060609";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
   drawBackground();
   
   drawGrid();
@@ -997,16 +993,6 @@ function drawQuestionBox(){
   ctx.shadowBlur   = 10;
   wrapText(currQuestion ? currQuestion.question: "Loading....", canvas.width / 2, qb.y + qb.h / 2, qb.w - 40, 22);
   ctx.restore();
-
-  // Timer
- ctx.save();
- ctx.font         = "10px 'Press Start 2P'";
- ctx.fillStyle    = timeLeft <= 3 ? "#ff2d6f" : "#00ffb4";
- ctx.shadowColor  = timeLeft <= 3 ? "#ff2d6f" : "#00ffb4";
- ctx.shadowBlur   = 10;
- ctx.textAlign    = "right";
- ctx.textBaseline = "middle";
- ctx.restore();
 }
 
 function drawBackground() {
@@ -1183,5 +1169,3 @@ function loop(){
   draw();
   requestAnimationFrame(loop);
 }
-
-document.fonts.ready.then(() => {});
