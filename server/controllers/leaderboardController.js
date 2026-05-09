@@ -3,21 +3,15 @@ const {saveScore, getLeaderboard} =require("../services/leaderboardService");
 async function submitScore(req,res) {
     try{
       
-        const { theme, difficulty, score} =req.body;
+        const { score} =req.body;
         const playerName = req.user.username;
 
-        if( !theme || !difficulty || score === "undefined"){
+        if( score === undefined){
             return res.status(400).json({
-                message: "theme, difficulty, and score are required"
+                message: "Score is required"
             });
         }
         
-        if(difficulty !== "endless"){
-            return res.status(400).json({
-                message:"Only endless mode scores can be saved"
-            });
-        }
-
         if(typeof score !== "number"){
             return res.status(400).json({
                 message: "Score must be a number"
@@ -27,8 +21,6 @@ async function submitScore(req,res) {
         const savedScore = await saveScore(
             req.user.id,
             playerName,
-            theme,
-            difficulty,
             score
         );
 
@@ -52,15 +44,7 @@ async function submitScore(req,res) {
 
 async function leaderboard(req, res) {
     try {
-        const { theme } = req.query;
-
-        if (!theme) {
-            return res.status(400).json({
-                message: "Theme is required"
-            });
-        }
-
-        const scores = await getLeaderboard(theme);
+        const scores = await getLeaderboard();
 
         return res.status(200).json(scores);
 
