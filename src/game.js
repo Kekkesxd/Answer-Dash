@@ -6,7 +6,6 @@ const livesDisplay = document.getElementById("livesDisplay");
 const startScreen = document.getElementById("startScreen");
 const gameScreen = document.getElementById("gameScreen");
 const startButton = document.getElementById("startButton");
-const playerNameInput = document.getElementById("playerName");
 const difficultySelect = document.getElementById("difficulty");
 const timerDisplay = document.getElementById("timerDisplay");
 const endScreen = document.getElementById("endScreen");
@@ -16,6 +15,8 @@ const questionsDisplay = document.getElementById("questionsDisplay");
 const rulesPopup = document.getElementById("rulesPopup");
 const rulesButton = document.getElementById("rulesButton");
 const themeSelect = document.getElementById("theme");
+const themeBox = document.getElementById("themeBox");
+const themeNotice = document.getElementById("themeNotice");
 const highScoreDisplay = document.getElementById("highScoreDisplay");
 
 let selectedTheme ="";
@@ -25,6 +26,7 @@ let playerName = "";
 let selectedDiff = "";
 let backgroundMusic = null;
 let screenFlashAlpha = 0;
+let endlessRound = 0;
 
 const player = {
     x: canvas.width / 2 - 14,
@@ -39,8 +41,54 @@ const difficultySettings = {
   medium: {lives: 4, speed: 3.8, timer: 8, obstacles: 8, resetObstacles: 4, movingZones: false, music: "music/medium.flac", timerFlash : true},
   hard: {lives : 3 , speed: 3.8, timer: 6, obstacles: 15, resetObstacles: 10, movingZones: false, music: "music/hard.flac", timerFlash : true},
   arel: {lives: 2, speed: 3.8, timer: 5, obstacles: 20, resetObstacles: 20, movingZones:true, zoneSpeed:1, zoneShrinkRate: 0.25, minZoneW: 120,
-     minZoneH: 45, music: "music/Arel.flac",timerFlash : true}
+     minZoneH: 45, music: "music/Arel.flac",timerFlash : true},
+  endless: {lives: 3, speed: 3.8, timer: 12, obstacles: 8, resetObstacles: 3, movingZones: false, 
+    music:"music/medium.flac", timerFlash: true, endless: true }
 };
+
+function applyEndlessDiff(){
+  if(selectedDiff !== "endless") return;
+
+  const round = endlessRound;
+
+  //timer starting at 12 and slowly dropping
+  const timerDrop = Math.min(4, Math.floor(round / 5));
+  playerTimer = Math.max(8, 12 - timerDrop);
+
+  //Questions 1-5 
+  if(round < 5){
+    obstacleCount = 8;
+    resetObstacles = 3;
+
+    currentSettings.movingZones = false;
+    currentSettings.zoneSpeed = 0;
+    currentSettings.zoneShrinkRate = 0;
+    return;
+  }
+
+  //Questions 6-10
+  if(round < 10){
+    obstacleCount = 15;
+    resetObstacles = 8;
+
+    currentSettings.movingZones = false;
+    currentSettings.zoneSpeed = 0;
+    currentSettings.zoneShrinkRate = 0;
+    return;
+  }
+
+  //Questions 10+ - Arel
+  const arelLevel = Math.floor((round - 10) / 5);
+
+  obstacleCount = Math.min(20, 16 + arelLevel);
+  resetObstacles = Math.min(20,10 +arelLevel);
+
+  currentSettings.movingZones = true;
+  currentSettings.zoneSpeed = Math.min(3.5, 1 + arelLevel * 0.25);
+  currentSettings.zoneShrinkRate = 0.25;
+  currentSettings.minZoneW = 120;
+  currentSettings.minZoneH = 45;
+}
 
 const myThemes = [
   {
@@ -76,33 +124,44 @@ for(const theme of myThemes){
   themeSelect.innerHTML += `<option value="${theme.id}">${theme.displayName}</option>`;
 }
 
+difficultySelect.addEventListener("change", () =>{
+  if(difficultySelect.value === "endless"){
+    themeSelect.value = "";
+    themeBox.classList.add("hidden");
+    themeNotice.classList.remove("hidden");
+  }else {
+    themeBox.classList.remove("hidden");
+    themeNotice.classList.add("hidden");
+  }
+});
+
 startButton.addEventListener("click", () => {
-  playerName = playerNameInput.value.trim();
+  playerName = localStorage.getItem("username") || "Player";
   selectedDiff = difficultySelect.value;
   selectedTheme = themeSelect.value;
 
-  if(playerName === ""){
-    alert("Please Enter your name!");
-    return;
-  }
-
-  if(selectedDiff == ""){
+  if(selectedDiff === ""){
     alert("Please select a difficulty!");
     return;
   }
-  if(selectedTheme === ""){
+  if(selectedDiff !== "endless" && selectedTheme === ""){
     alert("Please select a theme!");
     return;
   }
+  if(selectedDiff === "endless"){
+    selectedTheme = "all";
+  }
 
-  startScreen.classList.add("hidden");
   rulesPopup.classList.remove("hidden");
+  console.log(rulesPopup);
 })
 
 rulesButton.addEventListener("click", () => {
   rulesPopup.classList.add("hidden");
   startGame();
 })
+
+
 
 restartButton.addEventListener("click", () => {
   endScreen.classList.add("hidden");
@@ -115,9 +174,10 @@ restartButton.addEventListener("click", () => {
   questionsDisplay.textContent =`Q: 1/${questions.length}`;
 
   // Clear inputs
-  playerNameInput.value  = "";
   difficultySelect.value = "";
 });
+
+
 
 // Collide with question box
 const qb = { x: 50, y: 20, w: canvas.width - 100, h: 110 };
@@ -310,7 +370,7 @@ function playMusic(){
   backgroundMusic.volume = 0.05;
 
   backgroundMusic.play().catch(error => {
-    console.error("Music Could not play:", Error);
+    console.error("Music Could not play:", error);
   });
 }
 
@@ -402,32 +462,78 @@ function shuffleAnswers(question) {
     correct: pairs.findIndex(p => p.i === question.correct)
   };
 }
+async function loadAllThemeQuestions(){
+  const allQuestionSets = await Promise.all(
+    myThemes.map(async theme => {
+      const respone = await fetch(theme.file);
 
+      if(!respone.ok){
+        throw new Error(`Could not load ${theme.file}`);
+      }
+
+      return respone.json();
+    })
+  );
+  return allQuestionSets.flat();
+}
 async function loadQuestions() {
-  try{
-    const theme = myThemes.find(t => t.id === selectedTheme);
-    
-    if(!theme){
-      throw new Error("Theme not Found");
-    }
-    const response = await fetch(theme.file);
-    questions = await response.json();
+   try {
+    if (selectedDiff === "endless") {
+      questions = await loadAllThemeQuestions();
+    } else {
+      const theme = myThemes.find(t => t.id === selectedTheme);
 
-    //shuffling the questions
-    for (let i = questions.length - 1; i > 0; i--){
-      const j = Math.floor(Math.random() * (i+1));
+      if (!theme) {
+        throw new Error("Theme not found");
+      }
+
+      const response = await fetch(theme.file);
+
+      if (!response.ok) {
+        throw new Error(`Could not load ${theme.file}`);
+      }
+
+      questions = await response.json();
+    }
+
+    if (!questions || questions.length === 0) {
+      throw new Error("No questions loaded");
+    }
+
+    // Shuffle questions
+    for (let i = questions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
       [questions[i], questions[j]] = [questions[j], questions[i]];
     }
-    questions = questions.slice(0,20);
+
+    if (selectedDiff !== "endless") {
+      questions = questions.slice(0, 20);
+    }
+
     currQuestion = shuffleAnswers(questions[0]);
+
+    applyEndlessDiff();
+
     zones = generateZones();
     obstacles = generateObstacles();
-    questionsDisplay.textContent = `Q: 1/${questions.length}`;
+
+    questionsDisplay.textContent =
+      selectedDiff === "endless"
+        ? `Q: ${endlessRound + 1}`
+        : `Q: 1/${questions.length}`;
+
     startCountdown();
-  }catch(error){
-    console.error("Could not load the questions", error);
+
+    return true;
+
+  } catch (error) {
+    console.error("Could not load the questions:", error);
+    alert("Could not load questions. Check the console.");
+    return false;
   }
 }
+
+
 function checkAnswer() {
   if (roundLocked) return;
 
@@ -471,13 +577,32 @@ function checkAnswer() {
 
 function nextQuestion(){
   currQuestionIndex++;
-  if(currQuestionIndex >= questions.length){
-    endGame();
-    return;
+
+  if(selectedDiff === "endless"){
+    endlessRound++;
+    
+    
+    if(currQuestionIndex >= questions.length){
+      currQuestionIndex = 0;
+
+      for(let i = questions.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
+      }
+    }
+
+    applyEndlessDiff();
+      
+  }else{
+    if (currQuestionIndex >= questions.length){
+      endGame();
+      return;
+    }
   }
 
   currQuestion = shuffleAnswers(questions[currQuestionIndex]);
-  questionsDisplay.textContent= `Q: ${currQuestionIndex + 1}/${questions.length}`;
+  questionsDisplay.textContent= selectedDiff ==="endless"?`Q: ${endlessRound + 1}`
+   :`Q: ${currQuestionIndex + 1}/${questions.length}`;
   zones = generateZones();
   obstacles = generateObstacles();
   roundLocked = false;
@@ -513,6 +638,15 @@ function endGame(){
 
   gameRunning = false;
   clearInterval(timerInterval);
+
+  if(selectedDiff === "endless"){
+    sumbitLBScore(score).then(result => {
+      console.log("Leaderboard result:", result);
+    })
+    .catch(error =>{
+      console.error("Could not submit leaderboard score:", score);
+    });
+  }
 
   const isNewHigh = saveHighScore(score);
   const highScore = loadHighScore();
@@ -561,6 +695,7 @@ function startGame(){
 
   score = 0;
   currQuestionIndex = 0;
+  endlessRound = 0;
   roundLocked = false;
   resultCorrectIndex = null;
   resultChosenIndex = null;
@@ -572,28 +707,43 @@ function startGame(){
 
   player.x = canvas.width  / 2 - player.size / 2;
   player.y = canvas.height / 2 + 50;
-
+  
   startScreen.classList.add("hidden");
-  gameScreen.classList.remove("hidden");
 
-  loadQuestions().then(() => loop());
+  loadQuestions().then((loaded)=> {
+    if(loaded){
+      gameScreen.classList.remove("hidden");
+      loop()
+    }else{
+      gameRunning = false;
+      gameScreen.classList.add("hidden");
+      startScreen.classList.remove("hidden");
+    }
+  });
 }
 
-let zones = generateZones();
+let zones = []
 let obstacles = [];
 let obstacleCount = 0;
 let resetObstacles = 0;
 const keys = {};
 
 window.addEventListener("keydown", e => {
-  keys[e.key.toLowerCase()] = true;
-  if (["arrowup","arrowdown","arrowleft","arrowright"].includes(e.key.toLowerCase())) {
+  if(!e.key) return;
+
+  const key = e.key.toLocaleLowerCase();
+  keys[key] = true;
+
+  if (["arrowup","arrowdown","arrowleft","arrowright"].includes(key)) {
     e.preventDefault();
   }
 });
 
 window.addEventListener("keyup", e => {
-  keys[e.key.toLowerCase()] = false;
+  if(!e.key) return;
+
+  const key = e.key.toLocaleLowerCase();
+  keys[key] = false;
 });
 
 function update() {

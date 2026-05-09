@@ -1,69 +1,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body{
-    background: #050508;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    font-family: 'Press Start 2P', monospace;
-    overflow: hidden;
+body {
+  background: #050508;
+  min-height: 100vh;
+  font-family: 'Press Start 2P', monospace;
+  overflow: hidden;
 }
 
-#gameCanvas{
-    display: block;
-    image-rendering: pixelated;
-    border: 2px solid #b700ff;
-    box-shadow: 
-    0 0 0 1px #050508
-    0 0 24px #00ffb455
+.hidden {
+  display: none !important;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================
+   MAIN SCREENS
+========================= */
+
+#authScreen,
+#startScreen,
+#endScreen {
+  width: 1000px;
+  height: 600px;
+  border: 2px solid #00ffb4;
+  box-shadow:
+    0 0 24px #00ffb455,
     0 0 60px #00ffb411;
+  background: #060609;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#hud{
-    display: flex;
-    justify-content: space-between;
-    gap: 24px;
-    width: 1000px;
-    padding: 4px 4px;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 11px;
-}
+/* =========================
+   MENU BOX
+========================= */
 
-#scoreDisplay { color: #00ffb4; text-shadow: 0 0 10px #00ffb4; }
-#livesDisplay { color: #ff2d6f; text-shadow: 0 0 10px #ff2d6f; }
-
-
-.hidden{
-    display: none !important;
-}
-
-#app{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-#startScreen{
-    width: 1000px;
-    height: 600px;
-    border: 2px solid #00ffb4;
-    box-shadow: 0 0 24px #00ffb455, 0 0 60px #00ffb411;
-    background: #060609;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#menuBox {
+.menuBox {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,16 +55,19 @@ body{
   width: 340px;
 }
 
-#menuBox h1 {
+.menuBox h1 {
   font-size: 16px;
   color: #00ffb4;
-  text-shadow: 0 0 10px #00ffb4, 0 0 30px #00ffb455;
+  text-shadow:
+    0 0 10px #00ffb4,
+    0 0 30px #00ffb455;
   margin-bottom: 10px;
   letter-spacing: 4px;
+  text-align: center;
 }
 
-#menuBox input,
-#menuBox select {
+.menuBox input,
+.menuBox select {
   width: 100%;
   height: 44px;
   background: #0d0d14;
@@ -94,11 +81,12 @@ body{
   border-radius: 6px;
 }
 
-#menuBox select option {
+.menuBox select option {
   background: #0d0d14;
+  color: #ffffff;
 }
 
-#menuBox button {
+.menuBox button {
   width: 100%;
   height: 48px;
   background: transparent;
@@ -110,37 +98,127 @@ body{
   cursor: pointer;
   border-radius: 6px;
   letter-spacing: 3px;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 
-#menuBox button:hover {
+.menuBox button:hover {
   background: #00ffb4;
   color: #060609;
+  transform: scale(1.02);
 }
 
-#timerDisplay{color: #00ffb4; text-shadow: 0 0 10px #00ffb4;}
+/* =========================
+   AUTH SCREEN
+========================= */
 
-#finalText{
-  font-family: 'Press Start 2P', monospace;
-  font-size: 10px;
-  color: #ff2d6f;
-  text-shadow: 0 0 10px #ff2d6f;
-  text-align: center;
-  line-height: 1.8;
-}
-
-#endScreen {
-  width: 1000px;
-  height: 600px;
-  border: 2px solid #00ffb4;
-  box-shadow: 0 0 24px #00ffb455, 0 0 60px #00ffb411;
-  background: #060609;
+#authTabs {
+  width: 100%;
   display: flex;
-  justify-content: center;
+  gap: 10px;
+}
+
+#authTabs button {
+  flex: 1;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+#loginForm,
+#registerForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#authMessage {
+  min-height: 18px;
+  font-size: 9px;
+  color: #ffcc00;
+  text-align: center;
+  line-height: 1.6;
+  text-shadow: 0 0 8px #ffcc00;
+}
+
+/* =========================
+   GAME SCREEN
+========================= */
+
+#gameScreen {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-#questionsDisplay{color: #ffcc00; text-shadow: 0 0 10px #ffcc00;}
+#gameCanvas {
+  display: block;
+  image-rendering: pixelated;
+  border: 2px solid #b700ff;
+  box-shadow:
+    0 0 0 1px #050508,
+    0 0 24px #00ffb455,
+    0 0 60px #00ffb411;
+}
+
+#hud {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  width: 1500px;
+  padding: 4px 4px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+}
+
+#scoreDisplay {
+  color: #00ffb4;
+  text-shadow: 0 0 10px #00ffb4;
+}
+
+#highScoreDisplay {
+  color: #ffcc00;
+  text-shadow: 0 0 10px #ffcc00;
+}
+
+#questionsDisplay {
+  color: #ffcc00;
+  text-shadow: 0 0 10px #ffcc00;
+}
+
+#timerDisplay {
+  color: #00ffb4;
+  text-shadow: 0 0 10px #00ffb4;
+}
+
+#livesDisplay {
+  color: #ff2d6f;
+  text-shadow: 0 0 10px #ff2d6f;
+}
+#themeBox{
+  width: 100%;
+}
+#themeNotice {
+  width: 100%;
+  font-size: 9px;
+  color: #ffcc00;
+  text-align: center;
+  line-height: 1.6;
+  text-shadow: 0 0 8px #ffcc00;
+}
+
+/* =========================
+   RULES POPUP
+========================= */
+
+#rulesPopup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
 
 #rulesBox {
   width: 700px;
@@ -182,13 +260,25 @@ body{
   cursor: pointer;
   border-radius: 6px;
   letter-spacing: 3px;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
   margin-top: 10px;
 }
 
 #rulesBox button:hover {
   background: #00ffb4;
   color: #060609;
+  transform: scale(1.02);
 }
 
-#highScoreDisplay{color: #ffcc00; text-shadow: 0 0 10px #ffcc00;}
+/* =========================
+   END SCREEN
+========================= */
+
+#finalText {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: #ff2d6f;
+  text-shadow: 0 0 10px #ff2d6f;
+  text-align: center;
+  line-height: 1.8;
+}

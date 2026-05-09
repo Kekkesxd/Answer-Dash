@@ -25,10 +25,14 @@ async function register(req, res) {
                 message:"Please Enter a Valid email"           
             });
         }
-
         if(password.length < 8){
             return res.status(400).json({
                 message:"Password has to be atleast 8 character"
+            });
+        }
+        if (/\s/.test(password)) {
+            return res.status(400).json({
+                message: "Password cannot contain spaces"
             });
         }
 
