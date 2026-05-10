@@ -15,8 +15,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "format": "prettier ./src/ --write && prettier ./server/ --write",
-    "formatCheck": "prettier ./src/ --check && prettier ./server/ --check",
+    "format": "prettier ./docs/ --write && prettier ./server/ --write",
+    "formatCheck": "prettier ./docs/ --check && prettier ./server/ --check",
     "lint": "eslint src && eslint server",
     "test": "jest",
     "dev": "nodemon server/server.js"
