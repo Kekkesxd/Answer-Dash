@@ -812,7 +812,14 @@ function endGame() {
    High Score: <span style="color:#ffcc00">${highScore}</span>
    ${isNewHigh ? '<br><br><span style="color:#ff2d6f">NEW HIGH SCORE!</span>' : ""}`;
 
-  loadEndLeaderboard();
+  try{
+    const result = await submitLBScore(score);
+    console.log("Leaderboard result:", result);
+  }catch(error){
+    console.error("Could not submit leaderboard score:", error);
+  }
+  
+  await loadEndLeaderboard();
 }
 
 function getHighScoreKey() {
