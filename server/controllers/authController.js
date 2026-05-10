@@ -58,7 +58,7 @@ async function register(req, res) {
 
 async function login(req, res) {
   try {
-    const { username, password } = req.body;
+    const { username, password } = req.body || {};
 
     if (!username || !password) {
       return res.status(400).json({
@@ -71,7 +71,7 @@ async function login(req, res) {
     res.cookie("token", result.token, {
       httpOnly: true,
       secure: true,
-      sameSite:"none",
+      sameSite: "none",
       maxAge: 60 * 60 * 1000,
     });
 
