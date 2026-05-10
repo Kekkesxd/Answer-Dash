@@ -1,104 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Answer Dash</title>
     <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-    <main id = "app">
-        <!--- Auth Screen-->
-        <section id="authScreen">
-            <div class="menuBox">
-                <h1>ANSWER DASH</h1>
+  </head>
+  <body>
+    <main id="app">
+      <!-- Start Screen -->
+      <section id="startScreen">
+        <div class="menuBox">
+          <h1>ANSWER DASH</h1>
+          <select id="difficulty">
+            <option value="">Select Difficulty</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+            <option value="arel">Arel</option>
+            <option value="endless">Endless</option>
+          </select>
+          <div id="themeBox">
+            <select id="theme">
+              <option value="">Select Theme</option>
+            </select>
+          </div>
 
-                <div id="authTabs">
-                    <button id= "showLoginButton" type="button">Login</button>
-                    <button id="showRegisterButton" type="button">Register</button>
-                </div>
-
-                <!-- Login Form-->
-                 <div id="loginForm">
-                    <input id="loginUsername" type="text" placeholder="Username"/>
-                    <input id="loginPassword" type="password" placeholder="Password"/>
-                    <button id="loginButton" type="button">LOGIN</button>
-                 </div>
-
-                 <!-- Register Form-->
-                  <div id="registerForm" class="hidden">
-                    <input id="registerUsername" type="text" placeholder="Username"/>
-                    <input id="registerEmail" type="email" placeholder="Email"/>
-                    <input id="registerPassword" type="password" placeholder="Password"/>
-                    <Button id="registerButton" type="button">REGISTER</Button>
-                  </div>
-
-                  <p id="authMessage"></p>
-            </div>
-        </section>
-
-
-        <!-- Start Screen -->
-         <section id="startScreen" class="hidden">
-            <div class="menuBox">
-                <h1>ANSWER DASH</h1>
-                <select id="difficulty">
-                     <option value="">Select Difficulty</option>
-                     <option value="easy">Easy</option>
-                     <option value="medium">Medium</option>
-                     <option value="hard">Hard</option>
-                     <option value="arel">Arel</option>
-                     <option value="endless">Endless</option>
-                </select>
-            <div id="themeBox">
-                <select id="theme">
-                    <option value="">Select Theme</option>
-                </select>
-            </div>
-            <p id="themeNotice" class="hidden">Themes are mixed in Endless Mode</p>
-            <button id="startButton">START</button>
-        </section>
-
-        <!-- RULES POPUP -->
-        <div id="rulesPopup" class="hidden">
-            <div id="rulesBox">
-                <h2>HOW TO PLAY</h2>
-                <p>Move with <span class="key">WASD</span> or <span class="key">ARROW KEYS</span></p>
-                <p>Read the question and run to the correct answer zone</p>
-                <p>Landing on the <strong style="color: #00ffb4;">wrong answer</strong> or <strong style="color: #00ffb4;">running out of time</strong> costs you a life.</p>
-                <p><strong style="color: red;">Red obstacles</strong> block your path — navigate around them.</p>
-                <p><strong style="color: orange;">Orange obstacles (!)</strong> will teleport you back to the center!</p>
-                <p>You have a limited amount of time per question — watch the timer!</p>
-                <p>Press <strong>LET'S GO</strong> when you're ready.</p>
-                <button id="rulesButton">LET'S GO</button>
-            </div>
+          <p id="themeNotice" class="hidden">
+            Themes are mixed in Endless Mode
+          </p>
+          <button id="startButton">START</button>
+          <button id="leaderboardButton">LEADERBOARD</button>
+          <button id="logoutButton">LOGOUT</button>
         </div>
+      </section>
 
-        <!-- Game Screen-->
-        <section id = "gameScreen" class="hidden">
-            <div id="hud">
-                <span id="scoreDisplay">SCORE: 0</span>
-                <span id="highScoreDisplay">BEST: 0</span>
-                <span id="questionsDisplay">Q: 1/10</span>
-                <span id="timerDisplay">TIME: 10</span>
-                <span id="livesDisplay">LIVES: 3</span>
-            </div>
-            <canvas id="gameCanvas" width="1500" height="600"></canvas> 
-        </section> 
+      <!-- RULES POPUP -->
+      <div id="rulesPopup" class="hidden">
+        <div id="rulesBox">
+          <h2>HOW TO PLAY</h2>
+          <p>
+            Move with <span class="key">WASD</span> or
+            <span class="key">ARROW KEYS</span>
+          </p>
+          <p>Read the question and run to the correct answer zone</p>
+          <p>
+            Landing on the
+            <strong style="color: #00ffb4">wrong answer</strong> or
+            <strong style="color: #00ffb4">running out of time</strong> costs
+            you a life.
+          </p>
+          <p>
+            <strong style="color: red">Red obstacles</strong> block your path —
+            navigate around them.
+          </p>
+          <p>
+            <strong style="color: orange">Orange obstacles (!)</strong> will
+            teleport you back to the center!
+          </p>
+          <p>
+            You have a limited amount of time per question — watch the timer!
+          </p>
+          <p>Press <strong>LET'S GO</strong> when you're ready.</p>
+          <button id="rulesButton">LET'S GO</button>
+        </div>
+      </div>
 
+      <!--Leaderboard Popup-->
+      <div id="leaderboardPopup" class="hidden">
+        <div id="leaderboardBox">
+          <h2>LEADERBOARD</h2>
 
-        <!-- END Screen-->
-        <section id="endScreen" class="hidden">
-            <div class="menuBox">
-                <h1>GAME IS OVER</h1>
-                <p id="finalText">You scored 0 points.</p>
-                <button id="restartButton">PLAY AGAIN</button>
-            </div>
-        </section>
+          <div id="leaderboardList">Loading....</div>
+
+          <button id="closeLeaderboardButton">CLOSE</button>
+        </div>
+      </div>
+
+      <!-- Game Screen-->
+      <section id="gameScreen" class="hidden">
+        <div id="hud">
+          <span id="scoreDisplay">SCORE: 0</span>
+          <span id="highScoreDisplay">BEST: 0</span>
+          <span id="questionsDisplay">Q: 1/10</span>
+          <span id="timerDisplay">TIME: 10</span>
+          <span id="livesDisplay">LIVES: 3</span>
+        </div>
+        <canvas id="gameCanvas" width="1500" height="600"></canvas>
+      </section>
+
+      <!-- END Screen-->
+      <section id="endScreen" class="hidden">
+         <div id="endLeaderboardBox">
+        <h2>LEADERBOARD</h2>
+
+        <div id="endLeaderboardList">
+            Loading...
+        </div>
+    </div>
+        <div class="menuBox endGameBox">
+          <h1>GAME IS OVER</h1>
+          <p id="finalText">You scored 0 points.</p>
+          <button id="restartButton">PLAY AGAIN</button>
+        </div>
+      </section>
     </main>
 
     <script src="api.js"></script>
-    <script src="auth.js"></script>
     <script src="game.js"></script>
-</body>
+  </body>
 </html>

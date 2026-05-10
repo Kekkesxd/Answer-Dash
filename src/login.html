@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Answer Dash</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main id="app">
+      <!--- Auth Screen-->
+      <section id="authScreen">
+        <div class="menuBox">
+          <h1>ANSWER DASH</h1>
+
+          <div id="authTabs">
+            <button id="showLoginButton" type="button">Login</button>
+            <button id="showRegisterButton" type="button">Register</button>
+          </div>
+
+          <!-- Login Form-->
+          <div id="loginForm">
+            <input id="loginUsername" type="text" placeholder="Username" />
+            <input id="loginPassword" type="password" placeholder="Password" />
+            <button id="loginButton" type="button">LOGIN</button>
+          </div>
+
+          <!-- Register Form-->
+          <div id="registerForm" class="hidden">
+            <input id="registerUsername" type="text" placeholder="Username" />
+            <input id="registerEmail" type="email" placeholder="Email" />
+            <input
+              id="registerPassword"
+              type="password"
+              placeholder="Password"
+            />
+            <button id="registerButton" type="button">REGISTER</button>
+          </div>
+
+          <p id="authMessage"></p>
+        </div>
+      </section>
+    </main>
+    <script src="api.js"></script>
+    <script src="auth.js"></script>
+  </body>
+</html>

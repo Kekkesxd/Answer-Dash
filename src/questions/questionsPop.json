@@ -1,32 +1,177 @@
 [
-  { "question": "Who sings Bad Guy?", "answers": ["Ariana Grande", "Billie Eilish", "Dua Lipa", "Olivia Rodrigo"], "correct": 1 },
-  { "question": "What show is set in Hawkins Indiana?", "answers": ["Dark", "Lost", "Stranger Things", "The OA"], "correct": 2 },
-  { "question": "Who plays Iron Man in the MCU?", "answers": ["Chris Evans", "Chris Hemsworth", "Mark Ruffalo", "Robert Downey Jr"], "correct": 3 },
-  { "question": "What app is known for short videos?", "answers": ["Instagram", "Snapchat", "TikTok", "YouTube"], "correct": 2 },
-  { "question": "Which band sang Bohemian Rhapsody?", "answers": ["The Beatles", "Queen", "Led Zeppelin", "Pink Floyd"], "correct": 1 },
-  { "question": "What is the highest grossing film ever?", "answers": ["Titanic", "Avengers Endgame", "Avatar", "The Lion King"], "correct": 2 },
-  { "question": "Who voiced Woody in Toy Story?", "answers": ["Tom Hanks", "Tim Allen", "Will Smith", "Jim Carrey"], "correct": 0 },
-  { "question": "What colour is Tinky Winky?", "answers": ["Green", "Yellow", "Red", "Purple"], "correct": 3 },
-  { "question": "Who is known as the Queen of Pop?", "answers": ["Beyonce", "Rihanna", "Madonna", "Lady Gaga"], "correct": 2 },
-  { "question": "What year did the iPhone first release?", "answers": ["2005", "2006", "2007", "2008"], "correct": 2 },
-  { "question": "Who plays Jack in Titanic?", "answers": ["Brad Pitt", "Leonardo DiCaprio", "Matt Damon", "Johnny Depp"], "correct": 1 },
-  { "question": "What show features Walter White?", "answers": ["Dexter", "Ozark", "Breaking Bad", "Narcos"], "correct": 2 },
-  { "question": "Who sang Shape of You?", "answers": ["Justin Bieber", "Sam Smith", "Ed Sheeran", "Harry Styles"], "correct": 2 },
-  { "question": "What is the name of Beyonces alter ego?", "answers": ["Lemonade", "Ivy Park", "Sasha Fierce", "Destiny"], "correct": 2 },
-  { "question": "Which film features the song Let It Go?", "answers": ["Moana", "Tangled", "Brave", "Frozen"], "correct": 3 },
-  { "question": "Who created the social network Facebook?", "answers": ["Elon Musk", "Steve Jobs", "Mark Zuckerberg", "Jack Dorsey"], "correct": 2 },
-  { "question": "What show features the Bluth family?", "answers": ["Seinfeld", "Curb Your Enthusiasm", "Arrested Development", "It's Always Sunny"], "correct": 2 },
-  { "question": "Who plays Thor in the MCU?", "answers": ["Chris Evans", "Chris Pratt", "Chris Hemsworth", "Chris Rock"], "correct": 2 },
-  { "question": "What was the name of Harry Styles' band?", "answers": ["The Wanted", "5SOS", "One Direction", "Jonas Brothers"], "correct": 2 },
-  { "question": "Which artist released the album Lemonade?", "answers": ["Rihanna", "Beyonce", "Adele", "Taylor Swift"], "correct": 1 },
-  { "question": "What show is set in a women's prison?", "answers": ["Wentworth", "Prison Break", "Orange Is The New Black", "Oz"], "correct": 2 },
-  { "question": "Who directed Inception?", "answers": ["Steven Spielberg", "James Cameron", "Christopher Nolan", "Ridley Scott"], "correct": 2 },
-  { "question": "What platform did Fortnite make famous?", "answers": ["Xbox", "PlayStation", "PC", "Battle Royale"], "correct": 3 },
-  { "question": "Who plays Eleven in Stranger Things?", "answers": ["Sadie Sink", "Millie Bobby Brown", "Natalia Dyer", "Maya Hawke"], "correct": 1 },
-  { "question": "What year did Friends end?", "answers": ["2002", "2003", "2004", "2005"], "correct": 2 },
-  { "question": "Who sang Rolling in the Deep?", "answers": ["Adele", "Amy Winehouse", "Duffy", "Paloma Faith"], "correct": 0 },
-  { "question": "What film features the quote You cant handle the truth?", "answers": ["The Godfather", "Goodfellas", "A Few Good Men", "Scarface"], "correct": 2 },
-  { "question": "Who plays the Joker in The Dark Knight?", "answers": ["Joaquin Phoenix", "Jack Nicholson", "Heath Ledger", "Jared Leto"], "correct": 2 },
-  { "question": "What show features dragons and the Iron Throne?", "answers": ["Vikings", "The Last Kingdom", "Merlin", "Game of Thrones"], "correct": 3 },
-  { "question": "Who sang Thriller?", "answers": ["Prince", "Michael Jackson", "James Brown", "David Bowie"], "correct": 1 }
+  {
+    "question": "Who sings Bad Guy?",
+    "answers": ["Ariana Grande", "Billie Eilish", "Dua Lipa", "Olivia Rodrigo"],
+    "correct": 1
+  },
+  {
+    "question": "What show is set in Hawkins Indiana?",
+    "answers": ["Dark", "Lost", "Stranger Things", "The OA"],
+    "correct": 2
+  },
+  {
+    "question": "Who plays Iron Man in the MCU?",
+    "answers": [
+      "Chris Evans",
+      "Chris Hemsworth",
+      "Mark Ruffalo",
+      "Robert Downey Jr"
+    ],
+    "correct": 3
+  },
+  {
+    "question": "What app is known for short videos?",
+    "answers": ["Instagram", "Snapchat", "TikTok", "YouTube"],
+    "correct": 2
+  },
+  {
+    "question": "Which band sang Bohemian Rhapsody?",
+    "answers": ["The Beatles", "Queen", "Led Zeppelin", "Pink Floyd"],
+    "correct": 1
+  },
+  {
+    "question": "What is the highest grossing film ever?",
+    "answers": ["Titanic", "Avengers Endgame", "Avatar", "The Lion King"],
+    "correct": 2
+  },
+  {
+    "question": "Who voiced Woody in Toy Story?",
+    "answers": ["Tom Hanks", "Tim Allen", "Will Smith", "Jim Carrey"],
+    "correct": 0
+  },
+  {
+    "question": "What colour is Tinky Winky?",
+    "answers": ["Green", "Yellow", "Red", "Purple"],
+    "correct": 3
+  },
+  {
+    "question": "Who is known as the Queen of Pop?",
+    "answers": ["Beyonce", "Rihanna", "Madonna", "Lady Gaga"],
+    "correct": 2
+  },
+  {
+    "question": "What year did the iPhone first release?",
+    "answers": ["2005", "2006", "2007", "2008"],
+    "correct": 2
+  },
+  {
+    "question": "Who plays Jack in Titanic?",
+    "answers": ["Brad Pitt", "Leonardo DiCaprio", "Matt Damon", "Johnny Depp"],
+    "correct": 1
+  },
+  {
+    "question": "What show features Walter White?",
+    "answers": ["Dexter", "Ozark", "Breaking Bad", "Narcos"],
+    "correct": 2
+  },
+  {
+    "question": "Who sang Shape of You?",
+    "answers": ["Justin Bieber", "Sam Smith", "Ed Sheeran", "Harry Styles"],
+    "correct": 2
+  },
+  {
+    "question": "What is the name of Beyonces alter ego?",
+    "answers": ["Lemonade", "Ivy Park", "Sasha Fierce", "Destiny"],
+    "correct": 2
+  },
+  {
+    "question": "Which film features the song Let It Go?",
+    "answers": ["Moana", "Tangled", "Brave", "Frozen"],
+    "correct": 3
+  },
+  {
+    "question": "Who created the social network Facebook?",
+    "answers": ["Elon Musk", "Steve Jobs", "Mark Zuckerberg", "Jack Dorsey"],
+    "correct": 2
+  },
+  {
+    "question": "What show features the Bluth family?",
+    "answers": [
+      "Seinfeld",
+      "Curb Your Enthusiasm",
+      "Arrested Development",
+      "It's Always Sunny"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Who plays Thor in the MCU?",
+    "answers": ["Chris Evans", "Chris Pratt", "Chris Hemsworth", "Chris Rock"],
+    "correct": 2
+  },
+  {
+    "question": "What was the name of Harry Styles' band?",
+    "answers": ["The Wanted", "5SOS", "One Direction", "Jonas Brothers"],
+    "correct": 2
+  },
+  {
+    "question": "Which artist released the album Lemonade?",
+    "answers": ["Rihanna", "Beyonce", "Adele", "Taylor Swift"],
+    "correct": 1
+  },
+  {
+    "question": "What show is set in a women's prison?",
+    "answers": ["Wentworth", "Prison Break", "Orange Is The New Black", "Oz"],
+    "correct": 2
+  },
+  {
+    "question": "Who directed Inception?",
+    "answers": [
+      "Steven Spielberg",
+      "James Cameron",
+      "Christopher Nolan",
+      "Ridley Scott"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What platform did Fortnite make famous?",
+    "answers": ["Xbox", "PlayStation", "PC", "Battle Royale"],
+    "correct": 3
+  },
+  {
+    "question": "Who plays Eleven in Stranger Things?",
+    "answers": [
+      "Sadie Sink",
+      "Millie Bobby Brown",
+      "Natalia Dyer",
+      "Maya Hawke"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What year did Friends end?",
+    "answers": ["2002", "2003", "2004", "2005"],
+    "correct": 2
+  },
+  {
+    "question": "Who sang Rolling in the Deep?",
+    "answers": ["Adele", "Amy Winehouse", "Duffy", "Paloma Faith"],
+    "correct": 0
+  },
+  {
+    "question": "What film features the quote You cant handle the truth?",
+    "answers": ["The Godfather", "Goodfellas", "A Few Good Men", "Scarface"],
+    "correct": 2
+  },
+  {
+    "question": "Who plays the Joker in The Dark Knight?",
+    "answers": [
+      "Joaquin Phoenix",
+      "Jack Nicholson",
+      "Heath Ledger",
+      "Jared Leto"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What show features dragons and the Iron Throne?",
+    "answers": ["Vikings", "The Last Kingdom", "Merlin", "Game of Thrones"],
+    "correct": 3
+  },
+  {
+    "question": "Who sang Thriller?",
+    "answers": ["Prince", "Michael Jackson", "James Brown", "David Bowie"],
+    "correct": 1
+  }
 ]

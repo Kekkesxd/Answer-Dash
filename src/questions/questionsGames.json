@@ -1,32 +1,172 @@
 [
-  { "question": "What game features Master Chief?", "answers": ["Destiny", "Halo", "Call of Duty", "Gears of War"], "correct": 1 },
-  { "question": "What is the best selling game of all time?", "answers": ["Tetris", "GTA V", "Minecraft", "Wii Sports"], "correct": 2 },
-  { "question": "What company made the PlayStation?", "answers": ["Microsoft", "Nintendo", "Sega", "Sony"], "correct": 3 },
-  { "question": "What is the currency in Zelda games?", "answers": ["Coins", "Gold", "Rupees", "Bells"], "correct": 2 },
-  { "question": "Who is the main character in RDR2?", "answers": ["John Marston", "Dutch Van Der Linde", "Arthur Morgan", "Bill Williamson"], "correct": 2 },
-  { "question": "What year was Minecraft released?", "answers": ["2008", "2010", "2012", "2009"], "correct": 1 },
-  { "question": "What game features the Vault-Tec corporation?", "answers": ["The Elder Scrolls", "Mass Effect", "Fallout", "Borderlands"], "correct": 2 },
-  { "question": "What is Pikachus type?", "answers": ["Fire", "Water", "Electric", "Normal"], "correct": 2 },
-  { "question": "What studio made God of War?", "answers": ["Naughty Dog", "Santa Monica Studio", "Insomniac", "Rockstar"], "correct": 1 },
-  { "question": "What game is set in Night City?", "answers": ["Watch Dogs", "GTA V", "Cyberpunk 2077", "Deus Ex"], "correct": 2 },
-  { "question": "Who is the main character in The Witcher 3?", "answers": ["Ciri", "Yennefer", "Geralt of Rivia", "Dandelion"], "correct": 2 },
-  { "question": "What is the name of Links horse in Zelda?", "answers": ["Roach", "Epona", "Shadowmere", "Argo"], "correct": 1 },
-  { "question": "What game features the Necromorphs?", "answers": ["Resident Evil", "Dead Space", "Silent Hill", "Alien Isolation"], "correct": 1 },
-  { "question": "Who made the Switch?", "answers": ["Sony", "Microsoft", "Sega", "Nintendo"], "correct": 3 },
-  { "question": "What is the max level in the original Dark Souls?", "answers": ["99", "200", "713", "999"], "correct": 2 },
-  { "question": "What game features the Spartan II program?", "answers": ["Gears of War", "Destiny", "Halo", "Mass Effect"], "correct": 2 },
-  { "question": "What is the name of the dog in Duck Hunt?", "answers": ["Rex", "Buddy", "The Duck Hunt Dog", "Max"], "correct": 2 },
-  { "question": "What game introduced the Battle Royale genre to mainstream?", "answers": ["Fortnite", "PUBG", "H1Z1", "Warzone"], "correct": 1 },
-  { "question": "What is Marios brothers name?", "answers": ["Wario", "Waluigi", "Luigi", "Toad"], "correct": 2 },
-  { "question": "What game features the city of Rapture?", "answers": ["Dishonored", "BioShock", "Deus Ex", "System Shock"], "correct": 1 },
-  { "question": "Who is the villain in the original Donkey Kong?", "answers": ["Bowser", "Wario", "Mario", "King K Rool"], "correct": 2 },
-  { "question": "What is the name of the horse in Red Dead Redemption 2?", "answers": ["Epona", "Roach", "Any horse you name", "Buck"], "correct": 2 },
-  { "question": "What company developed Fortnite?", "answers": ["Activision", "EA Games", "Epic Games", "Ubisoft"], "correct": 2 },
-  { "question": "What is the starter fire type in Pokemon Red?", "answers": ["Vulpix", "Growlithe", "Charmander", "Flareon"], "correct": 2 },
-  { "question": "What game features the Dragonborn?", "answers": ["Dragon Age", "The Witcher", "Skyrim", "Dark Souls"], "correct": 2 },
-  { "question": "What is the name of the ghost companion in Destiny?", "answers": ["Dinklebot", "Ghost", "Navi", "Cortana"], "correct": 1 },
-  { "question": "What game features the Paragon and Renegade system?", "answers": ["Dragon Age", "Knights of the Old Republic", "Mass Effect", "Jade Empire"], "correct": 2 },
-  { "question": "Who is the main antagonist in Halo?", "answers": ["The Flood", "The Covenant", "The Prometheans", "Cortana"], "correct": 1 },
-  { "question": "What game features the Nemesis system?", "answers": ["Assassins Creed", "Shadow of Mordor", "Batman Arkham", "Dying Light"], "correct": 1 },
-  { "question": "What is the name of the spaceship in Dead Space?", "answers": ["Ishimura", "Nostromo", "Sulaco", "Event Horizon"], "correct": 0 }
+  {
+    "question": "What game features Master Chief?",
+    "answers": ["Destiny", "Halo", "Call of Duty", "Gears of War"],
+    "correct": 1
+  },
+  {
+    "question": "What is the best selling game of all time?",
+    "answers": ["Tetris", "GTA V", "Minecraft", "Wii Sports"],
+    "correct": 2
+  },
+  {
+    "question": "What company made the PlayStation?",
+    "answers": ["Microsoft", "Nintendo", "Sega", "Sony"],
+    "correct": 3
+  },
+  {
+    "question": "What is the currency in Zelda games?",
+    "answers": ["Coins", "Gold", "Rupees", "Bells"],
+    "correct": 2
+  },
+  {
+    "question": "Who is the main character in RDR2?",
+    "answers": [
+      "John Marston",
+      "Dutch Van Der Linde",
+      "Arthur Morgan",
+      "Bill Williamson"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "What year was Minecraft released?",
+    "answers": ["2008", "2010", "2012", "2009"],
+    "correct": 1
+  },
+  {
+    "question": "What game features the Vault-Tec corporation?",
+    "answers": ["The Elder Scrolls", "Mass Effect", "Fallout", "Borderlands"],
+    "correct": 2
+  },
+  {
+    "question": "What is Pikachus type?",
+    "answers": ["Fire", "Water", "Electric", "Normal"],
+    "correct": 2
+  },
+  {
+    "question": "What studio made God of War?",
+    "answers": ["Naughty Dog", "Santa Monica Studio", "Insomniac", "Rockstar"],
+    "correct": 1
+  },
+  {
+    "question": "What game is set in Night City?",
+    "answers": ["Watch Dogs", "GTA V", "Cyberpunk 2077", "Deus Ex"],
+    "correct": 2
+  },
+  {
+    "question": "Who is the main character in The Witcher 3?",
+    "answers": ["Ciri", "Yennefer", "Geralt of Rivia", "Dandelion"],
+    "correct": 2
+  },
+  {
+    "question": "What is the name of Links horse in Zelda?",
+    "answers": ["Roach", "Epona", "Shadowmere", "Argo"],
+    "correct": 1
+  },
+  {
+    "question": "What game features the Necromorphs?",
+    "answers": [
+      "Resident Evil",
+      "Dead Space",
+      "Silent Hill",
+      "Alien Isolation"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Who made the Switch?",
+    "answers": ["Sony", "Microsoft", "Sega", "Nintendo"],
+    "correct": 3
+  },
+  {
+    "question": "What is the max level in the original Dark Souls?",
+    "answers": ["99", "200", "713", "999"],
+    "correct": 2
+  },
+  {
+    "question": "What game features the Spartan II program?",
+    "answers": ["Gears of War", "Destiny", "Halo", "Mass Effect"],
+    "correct": 2
+  },
+  {
+    "question": "What is the name of the dog in Duck Hunt?",
+    "answers": ["Rex", "Buddy", "The Duck Hunt Dog", "Max"],
+    "correct": 2
+  },
+  {
+    "question": "What game introduced the Battle Royale genre to mainstream?",
+    "answers": ["Fortnite", "PUBG", "H1Z1", "Warzone"],
+    "correct": 1
+  },
+  {
+    "question": "What is Marios brothers name?",
+    "answers": ["Wario", "Waluigi", "Luigi", "Toad"],
+    "correct": 2
+  },
+  {
+    "question": "What game features the city of Rapture?",
+    "answers": ["Dishonored", "BioShock", "Deus Ex", "System Shock"],
+    "correct": 1
+  },
+  {
+    "question": "Who is the villain in the original Donkey Kong?",
+    "answers": ["Bowser", "Wario", "Mario", "King K Rool"],
+    "correct": 2
+  },
+  {
+    "question": "What is the name of the horse in Red Dead Redemption 2?",
+    "answers": ["Epona", "Roach", "Any horse you name", "Buck"],
+    "correct": 2
+  },
+  {
+    "question": "What company developed Fortnite?",
+    "answers": ["Activision", "EA Games", "Epic Games", "Ubisoft"],
+    "correct": 2
+  },
+  {
+    "question": "What is the starter fire type in Pokemon Red?",
+    "answers": ["Vulpix", "Growlithe", "Charmander", "Flareon"],
+    "correct": 2
+  },
+  {
+    "question": "What game features the Dragonborn?",
+    "answers": ["Dragon Age", "The Witcher", "Skyrim", "Dark Souls"],
+    "correct": 2
+  },
+  {
+    "question": "What is the name of the ghost companion in Destiny?",
+    "answers": ["Dinklebot", "Ghost", "Navi", "Cortana"],
+    "correct": 1
+  },
+  {
+    "question": "What game features the Paragon and Renegade system?",
+    "answers": [
+      "Dragon Age",
+      "Knights of the Old Republic",
+      "Mass Effect",
+      "Jade Empire"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Who is the main antagonist in Halo?",
+    "answers": ["The Flood", "The Covenant", "The Prometheans", "Cortana"],
+    "correct": 1
+  },
+  {
+    "question": "What game features the Nemesis system?",
+    "answers": [
+      "Assassins Creed",
+      "Shadow of Mordor",
+      "Batman Arkham",
+      "Dying Light"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What is the name of the spaceship in Dead Space?",
+    "answers": ["Ishimura", "Nostromo", "Sulaco", "Event Horizon"],
+    "correct": 0
+  }
 ]
