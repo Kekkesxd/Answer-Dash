@@ -42,10 +42,6 @@ app.use("/api/leaderboard", leaderboardRoute);
 //Serve frontend files
 app.use(express.static(path.join(__dirname, "../src")));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../src/index.html"));
-});
-
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
