@@ -392,7 +392,7 @@ body {
 
 #endLeaderboardBox h2 {
   color: #00ffb4;
-  font-family: 'Press Start 2P', monospace;
+  font-family: "Press Start 2P", monospace;
   font-size: 18px;
   margin-bottom: 22px;
   text-shadow: 0 0 12px #00ffb4;
@@ -400,7 +400,7 @@ body {
 
 #endLeaderboardList {
   color: white;
-  font-family: 'Press Start 2P', monospace;
+  font-family: "Press Start 2P", monospace;
   font-size: 10px;
   line-height: 2;
   text-align: left;

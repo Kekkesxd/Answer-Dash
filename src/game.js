@@ -812,7 +812,7 @@ function endGame() {
    High Score: <span style="color:#ffcc00">${highScore}</span>
    ${isNewHigh ? '<br><br><span style="color:#ff2d6f">NEW HIGH SCORE!</span>' : ""}`;
 
-   loadEndLeaderboard();
+  loadEndLeaderboard();
 }
 
 function getHighScoreKey() {
