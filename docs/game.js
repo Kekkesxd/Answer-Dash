@@ -784,7 +784,7 @@ async function loadEndLeaderboard() {
   }
 }
 
-function endGame() {
+async function endGame() {
   stopMusic();
 
   gameRunning = false;
