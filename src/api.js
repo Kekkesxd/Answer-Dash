@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000";
+const API_URL = "https://answer-dash.onrender.com";
 
 async function registerUser(username, email, password) {
   const respone = await fetch(`${API_URL}/api/auth/register`, {
