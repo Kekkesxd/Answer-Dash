@@ -22,7 +22,6 @@ app.use(
       console.log("Request origin:", origin);
 
       if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
         return callback(null, true);
       }
 
