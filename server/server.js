@@ -39,7 +39,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/leaderboard", leaderboardRoute);
 
 //Serve frontend files
-app.use(express.static(path.join(__dirname, "../src")));
+app.use(express.static(path.join(__dirname, "../docs")));
 
 const PORT = process.env.PORT || 3000;
 
