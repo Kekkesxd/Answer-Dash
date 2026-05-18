@@ -9,6 +9,7 @@ const cookieParser = require("cookie-parser");
 
 const authRoutes = require("./routes/authRoutes");
 const leaderboardRoute = require("./routes/leaderboardRoutes");
+const questionRoutes = require("./routes/questionRoutes");
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 //API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/leaderboard", leaderboardRoute);
+app.use("/api/questions", questionRoutes);
 
 //Serve frontend files
 app.use(express.static(path.join(__dirname, "../docs")));
