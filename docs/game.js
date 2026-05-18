@@ -328,7 +328,7 @@ function clearQuestionForm() {
   customCorrectAnswer.value = "0";
 }
 
-async function loadQuestionsList() {
+async function loadMyQuestionsList() {
   myQuestionsList.innerHTML = "Loading...";
 
   try {
@@ -362,6 +362,7 @@ async function loadQuestionsList() {
     myQuestionsList.innerHTML = "Could not load custom questions.";
   }
 }
+window.handleDeleteCustomQuestion = handleDeleteCustomQuestion;
 
 async function handleDeleteCustomQuestion(id) {
   const confirmDelete = confirm("Delete this question?");
@@ -719,15 +720,17 @@ function shuffleAnswers(question) {
 }
 async function loadAllThemeQuestions() {
   const allQuestionSets = await Promise.all(
-    myThemes.map(async (theme) => {
-      const respone = await fetch(theme.file);
+    myThemes
+      .filter((theme) => !theme.custom)
+      .map(async (theme) => {
+        const respone = await fetch(theme.file);
 
-      if (!respone.ok) {
-        throw new Error(`Could not load ${theme.file}`);
-      }
+        if (!respone.ok) {
+          throw new Error(`Could not load ${theme.file}`);
+        }
 
-      return respone.json();
-    })
+        return respone.json();
+      })
   );
   return allQuestionSets.flat();
 }
