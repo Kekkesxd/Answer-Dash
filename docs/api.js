@@ -75,3 +75,47 @@ async function getLeaderboard() {
 
   return respone.json();
 }
+
+async function getMyQuestions() {
+  const response = await fetch(`${API_URL}/api/questions/my`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  return response.json();
+}
+
+async function createCustomQuestion(questionData) {
+  const response = await fetch(`${API_URL}/api/questions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(questionData),
+  });
+
+  return response.json();
+}
+
+async function updateCustomQuestion(id, questionData) {
+  const response = await fetch(`${API_URL}/api/questions/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(questionData),
+  });
+
+  return response.json();
+}
+
+async function deleteCustomQuestion(id) {
+  const response = await fetch(`${API_URL}/api/questions/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  return response.json();
+}

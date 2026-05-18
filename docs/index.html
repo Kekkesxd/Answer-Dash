@@ -31,6 +31,7 @@
           </p>
           <button id="startButton">START</button>
           <button id="leaderboardButton">LEADERBOARD</button>
+          <button id="manageQuestionsButton">MY QUESTIONS</button>
           <button id="logoutButton">LOGOUT</button>
         </div>
       </section>
@@ -74,6 +75,28 @@
           <div id="leaderboardList">Loading....</div>
 
           <button id="closeLeaderboardButton">CLOSE</button>
+        </div>
+      </div>
+      <!-- Question Manager Popup -->
+      <div id="questionManagerPopup" class="hidden">
+        <div id="questionManagerBox">
+          <h2>MY QUESTIONS</h2>
+          <input id="customQuestionInput" type="text" placeholder="Question" />
+          <input id="customAnswer0" type="text" placeholder="Answer 1" />
+          <input id="customAnswer1" type="text" placeholder="Answer 2" />
+          <input id="customAnswer2" type="text" placeholder="Answer 3" />
+          <input id="customAnswer3" type="text" placeholder="Answer 4" />
+
+          <select id="customCorrectAnswer">
+            <option value="0">Answer 1 is correct</option>
+            <option value="1">Answer 2 is correct</option>
+            <option value="2">Answer 3 is correct</option>
+            <option value="3">Answer 4 is correct</option>
+          </select>
+          <button id="saveCustomQuestionButton">SAVE QUESTION</button>
+          <button id="closeQuestionManagerButton">CLOSE</button>
+          <p id="questionManagerMessage"></p>
+          <div id="myQuestionsList"></div>
         </div>
       </div>
 

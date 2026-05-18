@@ -17,7 +17,7 @@
   "scripts": {
     "format": "prettier ./docs/ --write && prettier ./server/ --write",
     "formatCheck": "prettier ./docs/ --check && prettier ./server/ --check",
-    "lint": "eslint src && eslint server",
+    "lint": "eslint docs && eslint server",
     "test": "jest",
     "dev": "nodemon server/server.js"
   },

@@ -25,6 +25,27 @@ const closeLeaderboardButton = document.getElementById(
   "closeLeaderboardButton"
 );
 
+const manageQuestionsButton = document.getElementById("manageQuestionsButton");
+const questionManagerPopup = document.getElementById("questionManagerPopup");
+const closeQuestionManagerButton = document.getElementById(
+  "closeQuestionManagerButton"
+);
+
+const customQuestionInput = document.getElementById("customQuestionInput");
+const customAnswer0 = document.getElementById("customAnswer0");
+const customAnswer1 = document.getElementById("customAnswer1");
+const customAnswer2 = document.getElementById("customAnswer2");
+const customAnswer3 = document.getElementById("customAnswer3");
+const customCorrectAnswer = document.getElementById("customCorrectAnswer");
+
+const saveCustomQuestionButton = document.getElementById(
+  "saveCustomQuestionButton"
+);
+const questionManagerMessage = document.getElementById(
+  "questionManagerMessage"
+);
+const myQuestionsList = document.getElementById("myQuestionsList");
+
 let selectedTheme = "";
 let currentSettings = null;
 let gameRunning = false;
@@ -187,6 +208,12 @@ const myThemes = [
     displayName: "Tech and Gaming",
     file: "questions/questionsTechGame.json",
   },
+  {
+    id: "custom",
+    displayName: "My Questions",
+    file: null,
+    custom: true,
+  },
 ];
 
 themeSelect.innerHTML = `<option value="">Select Theme</option>`;
@@ -290,6 +317,115 @@ restartButton.addEventListener("click", () => {
 
   // Clear inputs
   difficultySelect.value = "";
+});
+
+function clearQuestionForm() {
+  customQuestionInput.value = "";
+  customAnswer0.value = "";
+  customAnswer1.value = "";
+  customAnswer2.value = "";
+  customAnswer3.value = "";
+  customCorrectAnswer.value = "0";
+}
+
+async function loadQuestionsList() {
+  myQuestionsList.innerHTML = "Loading...";
+
+  try {
+    const questions = await getMyQuestions();
+
+    if (!questions || questions.length === 0) {
+      myQuestionsList.innerHTML = "No custom questions yet.";
+      return;
+    }
+
+    myQuestionsList.innerHTML = questions
+      .map((q) => {
+        return `
+          <div class="custom-question-row">
+            <p><strong>${q.question}</strong></p>
+            <p>A: ${q.answers[0]}</p>
+            <p>B: ${q.answers[1]}</p>
+            <p>C: ${q.answers[2]}</p>
+            <p>D: ${q.answers[3]}</p>
+            <p>Correct: ${q.answers[q.correct]}</p>
+
+            <button onclick="handleDeleteCustomQuestion(${q.id})">
+              DELETE
+            </button>
+          </div>
+        `;
+      })
+      .join("");
+  } catch (error) {
+    console.error("Could not load custom questions:", error);
+    myQuestionsList.innerHTML = "Could not load custom questions.";
+  }
+}
+
+async function handleDeleteCustomQuestion(id) {
+  const confirmDelete = confirm("Delete this question?");
+
+  if (!confirmDelete) return;
+
+  try {
+    const result = await deleteCustomQuestion(id);
+
+    questionManagerMessage.textContent = result.message || "Question deleted.";
+
+    await loadMyQuestionsList();
+  } catch (error) {
+    console.error("Could not delete question:", error);
+    questionManagerMessage.textContent = "Could not delete question.";
+  }
+}
+
+manageQuestionsButton.addEventListener("click", async () => {
+  questionManagerPopup.classList.remove("hidden");
+  questionManagerMessage.textContent = "";
+  clearQuestionForm();
+
+  await loadMyQuestionsList();
+});
+
+closeQuestionManagerButton.addEventListener("click", () => {
+  questionManagerPopup.classList.add("hidden");
+});
+
+questionManagerPopup.addEventListener("click", (e) => {
+  if (e.target === questionManagerPopup) {
+    questionManagerPopup.classList.add("hidden");
+  }
+});
+
+saveCustomQuestionButton.addEventListener("click", async () => {
+  const questionData = {
+    theme: "custom",
+    question: customQuestionInput.value.trim(),
+    answers: [
+      customAnswer0.value.trim(),
+      customAnswer1.value.trim(),
+      customAnswer2.value.trim(),
+      customAnswer3.value.trim(),
+    ],
+    correct: Number(customCorrectAnswer.value),
+  };
+
+  try {
+    const result = await createCustomQuestion(questionData);
+
+    if (result.question) {
+      questionManagerMessage.textContent = "Question saved.";
+      clearQuestionForm();
+      await loadMyQuestionsList();
+    } else {
+      questionManagerMessage.textContent =
+        result.message || "Could not save question.";
+    }
+  } catch (error) {
+    console.error("Could not save custom question:", error);
+    questionManagerMessage.textContent = "Could not save question.";
+  }
 });
 
 // Collide with question box
@@ -606,13 +742,19 @@ async function loadQuestions() {
         throw new Error("Theme not found");
       }
 
-      const response = await fetch(theme.file);
+      if (theme.custom) {
+        questions = await getMyQuestions();
 
-      if (!response.ok) {
-        throw new Error(`Could not load ${theme.file}`);
+        if (!questions || questions.length === 0) {
+          throw new Error("No Custom questions found");
+        }
+      } else {
+        const response = await fetch(theme.file);
+        if (!response.ok) {
+          throw new Error(`Could not load ${theme.file}`);
+        }
+        questions = await response.json();
       }
-
-      questions = await response.json();
     }
 
     if (!questions || questions.length === 0) {

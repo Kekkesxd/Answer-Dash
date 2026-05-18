@@ -19,9 +19,7 @@ function validateQuestionInput(question, answers, correct) {
   }
 
   if (
-    answers.some(
-      (answer) => typeof answer !== "string" || answer.trim() === ""
-    )
+    answers.some((answer) => typeof answer !== "string" || answer.trim() === "")
   ) {
     return "All answers must be non-empty strings";
   }
@@ -77,7 +75,7 @@ async function createQuestion(req, res) {
     });
   } catch (err) {
     console.error("Create question controller Error:", err);
-    
+
     if (err.message === "ADD_QUESTION_FAILED") {
       return res.status(500).json({
         message: "Could not create question",
